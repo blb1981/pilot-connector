@@ -1,0 +1,32 @@
+<!-- In app.component.html -->
+<!-- Listen to event emitted from post create component, then execute function from app component with event data passed along -->
+<app-post-create (postCreated)="onPostAdded($event)"></app-post-create>
+<app-post-list [posts]="storedPosts"></app-post-list>
+<!-- The property inside the [] is inside the component, whatever is inside "" belongs to whatever component is rendering it -->
+
+<!-- TODO In post-list.component.html -->
+<!--  Add 1 dummy post from the and use the expansion panel from Angular Material -->
+<!-- Then use *ngFor to loop through teh posts after they are created -->
+
+<form (submit)="onAddPost(postForm)" #postForm="ngForm">
+  <input
+    type="text"
+    name="title"
+    ngModel
+    required
+    minlength="3"
+    #title="ngModel"
+  />
+  <span *ngIf="title.invalid">Please enter a valid post title</span>
+
+  <textarea
+    name="content"
+    rows="6"
+    ngModel
+    required
+    #content="ngModel"
+  ></textarea>
+  <span *ngIf="content.invalid">Please enter a valid post title</span>
+
+  <button type="submit">Add Post</button>
+</form>

@@ -1,4 +1,4 @@
-<h1>{{title}}</h1>
-<h3>{{summary}}</h3>
+<h1>{{ title }}</h1>
+<h3>{{ summary }}</h3>
 
-<app-jobs-create></app-jobs-create>
+<app-jobs-create (jobCreated)="onJobAdded($event)"></app-jobs-create>

@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component';
-import { JobsCreate } from './jobs-create/jobs-create.component';
+import { JobsCreate } from './jobs/jobs-create/jobs-create.component';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { JobsCreate } from './jobs-create/jobs-create.component';
     JobsCreate
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

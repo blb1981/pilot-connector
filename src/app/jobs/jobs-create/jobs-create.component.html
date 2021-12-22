@@ -1,0 +1,23 @@
+<form (submit)="onAddJob(jobForm)" #jobForm="ngForm">
+  <input
+    type="text"
+    name="title"
+    ngModel
+    required
+    minlength="3"
+    #title="ngModel"
+  />
+  <span *ngIf="title.invalid">error message</span>
+  <br />
+  <textarea
+    name="content"
+    id=""
+    cols="30"
+    rows="10"
+    ngModel
+    required
+    #content="ngModel"
+  ></textarea>
+  <span *ngIf="content.invalid">error message</span>
+  <button type="submit">Add Job</button>
+</form>
