@@ -1,3 +1,19 @@
+<!-- In post-create.component.html -->
+<h3>This is post-create component.</h3>
+
+<!-- For property binding, use the [] around the property -->
+<!-- To add a ref also use the # -->
+<textarea rows="6" [value]="newPost" #postInput></textarea>
+<hr />
+<button (click)="onAddPost(postInput)">Add post</button>
+
+<!-- For 2 way binding -->
+<textarea rows="6" [(ngModel)]="enteredValue"></textarea>
+<hr />
+<button (click)="onAddPost()">Add post</button>
+
+<p>{{ newPost }}</p>
+
 <!-- In app.component.html -->
 <!-- Listen to event emitted from post create component, then execute function from app component with event data passed along -->
 <app-post-create (postCreated)="onPostAdded($event)"></app-post-create>
@@ -8,25 +24,13 @@
 <!--  Add 1 dummy post from the and use the expansion panel from Angular Material -->
 <!-- Then use *ngFor to loop through teh posts after they are created -->
 
+<!-- TODO Redo the form-create.component.html as shown below (Angular Material omitted) -->
 <form (submit)="onAddPost(postForm)" #postForm="ngForm">
-  <input
-    type="text"
-    name="title"
-    ngModel
-    required
-    minlength="3"
-    #title="ngModel"
-  />
-  <span *ngIf="title.invalid">Please enter a valid post title</span>
+	<input type="text" name="title" ngModel required minlength="3" #title="ngModel" />
+	<span *ngIf="title.invalid">Please enter a valid post title</span>
 
-  <textarea
-    name="content"
-    rows="6"
-    ngModel
-    required
-    #content="ngModel"
-  ></textarea>
-  <span *ngIf="content.invalid">Please enter a valid post title</span>
+	<textarea name="content" rows="6" ngModel required #content="ngModel"></textarea>
+	<span *ngIf="content.invalid">Please enter a valid post title</span>
 
-  <button type="submit">Add Post</button>
+	<button type="submit">Add Post</button>
 </form>

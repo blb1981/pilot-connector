@@ -1,25 +1,24 @@
-import { Component, Output, EventEmitter } from "@angular/core";
+import { Component } from "@angular/core";
 import { NgForm } from "@angular/forms";
-import { Job } from '../job.model'
+import { JobsService } from "../jobs.service";
 
 @Component({
   selector: 'app-jobs-create',
   templateUrl: './jobs-create.component.html'
 })
-export class JobsCreate {
+export class JobsCreateComponent {
+
   enteredTitle = ''
   enteredContent = ''
-  @Output() jobCreated = new EventEmitter<Job>()
 
+  constructor(public jobsService: JobsService) {}
+  
   onAddJob(form: NgForm) {
     if (form.invalid) {
       return
     }
 
-    const job: Job = {
-      title: form.value.title,
-      content: form.value.content
-    }
-    this.jobCreated.emit(job)
+    this.jobsService.addJob(form.value.title, form.value.content)
+    
   }
 }

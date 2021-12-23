@@ -7,8 +7,6 @@
 // =============================================================================
 // post-create.component.ts
 // =============================================================================
-
-// TODO In post-create.component.ts
 // import { Component, EventEmitter, Output } from '@angular/core'
 // import { ngForm } from '@angular/forms'
 // // import Post model here
@@ -45,52 +43,41 @@
 // 	}
 // }
 
-// TODO Register new components in the app.module.ts file
-// TODO Add it to the declarations array in the @NgModule decorator function after importing it.
+
 
 // TODO Add Angular Material to the project and formate the components as desired
 // TODO Add a toolbar, textbox, an add post button, and style it
 
-// TODO Make post-list/post-list.component.ts (or "jobs-list"), post-list.component.html
-// TODO Register it in app.module.ts
 
 // =============================================================================
 // post-list.component.ts
 // =============================================================================
-// import { Component, Input } from '@angular/core'
-// // import Post model here
-// // import Posts service here
+import { Component, Input } from '@angular/core'
+// import Post model here
+// import Posts service here
 
-// @Component({
-// 	selector: 'app-post-list',
-// 	templateUrl: './post-list.component.html',
-// })
-// export class PostListComponent {
+@Component({
+	selector: 'app-post-list',
+	templateUrl: './post-list.component.html',
+})
+export class PostListComponent {
 
-// 	// TODO Test with dummy data using *ngFor, then conditionally render using *ngIf
-// 	// posts = [
-// 	// 	{ title: 'First post', content: "This is the first post's content" },
-// 	// 	{ title: 'Second post', content: "This is the second post's content" },
-// 	// 	{ title: 'Third post', content: "This is the third post's content" },
-// 	// ]
+	@Input() posts: Post[] = []
+	// postsService: PostsService
 
-// 	@Input() posts: Post[] = []
-// 	// postsService: PostsService
+	// Inject service into the component via constructor
+	// constructor(postsService: PostsService) {
+	// 	this.postsService = postsService
+	// }
 
-// 	// Inject service into the component via constructor
-// 	// constructor(postsService: PostsService) {
-// 	// 	this.postsService = postsService
-// 	// }
-
-// 	// Shorthand way to do above
-// 	constructor(public postsService: PostsService) {}
-// 	// TODO Service must be added to providers array in app.module.ts if you don't make the service injectable
-// }
+	// Shorthand way to do above
+	constructor(public postsService: PostsService) {}
+	// Service must be added to providers array in app.module.ts if you don't make the service injectable
+}
 
 // =============================================================================
 // app.component.ts
 // =============================================================================
-// TODO In app.component.ts
 // import Post model here
 // // add posts = [] to store the posts
 // storedPosts: Post[] = []
@@ -101,7 +88,6 @@
 // =============================================================================
 // post.model.ts
 // =============================================================================
-// TODO Add post model, posts/post.model.ts
 // export interface Post {
 // 	title: string,
 // 	content: string
@@ -111,21 +97,21 @@
 // posts.service.ts
 // =============================================================================
 // TODO Add posts/posts.service.ts
-// // Import Injectable from angular core here
-// // Import Post model here
+// Import Injectable from angular core here
+// Import Post model here
 
-// // If you don't add the line below, you need to add it to the providers array in app.module.ts
-// @Injectable({ providedIn: 'root' })
-// export class PostsService {
-// 	private posts: Post[] = []
+// If you don't add the line below, you need to add it to the providers array in app.module.ts
+@Injectable({ providedIn: 'root' })
+export class PostsService {
+	private posts: Post[] = []
 
-// 	getPosts() {
-// 		// Use spread operator to get a copy of the array
-// 		return [...this.posts]
-// 	}
+	getPosts() {
+		// Use spread operator to get a copy of the array
+		return [...this.posts]
+	}
 
-// 	addPost(title: string, content: string) {
-// 		const post: Post = { title, content }
-// 		this.posts.push(post)
-// 	}
-// }
+	addPost(title: string, content: string) {
+		const post: Post = { title, content }
+		this.posts.push(post)
+	}
+}

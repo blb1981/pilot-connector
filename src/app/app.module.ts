@@ -3,12 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component';
-import { JobsCreate } from './jobs/jobs-create/jobs-create.component';
+import { JobsCreateComponent } from './jobs/jobs-create/jobs-create.component';
+import { JobsListComponent } from './jobs/jobs-list/jobs-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    JobsCreate
+    JobsCreateComponent,
+    JobsListComponent
   ],
   imports: [
     BrowserModule,
