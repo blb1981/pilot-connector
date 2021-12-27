@@ -19,6 +19,7 @@ export class JobsCreateComponent {
     }
 
     this.jobsService.addJob(form.value.title, form.value.content)
+    form.resetForm()
     
   }
 }

@@ -15,7 +15,7 @@ export class JobsListComponent implements OnInit, OnDestroy {
   constructor(public jobsService: JobsService) {}
 
   ngOnInit() {
-    this.jobs = this.jobsService.getJobs()
+    this.jobsService.getJobs()
     this.jobsSub = this.jobsService.getJobsUpdatedListener()
     .subscribe((jobs: Job[]) => {
       this.jobs = jobs

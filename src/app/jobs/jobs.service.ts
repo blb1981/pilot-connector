@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs"
 import { Job } from './job.model'
 
@@ -7,8 +8,13 @@ export class JobsService  {
   private jobs: Job[] = []
   private jobsUpdated = new Subject<Job[]>()
 
+  constructor(private http: HttpClient) {}
+
   getJobs() {
-    return [...this.jobs]
+    this.http.get<Job[]>('http://localhost:3000/api/jobs').subscribe((data) => {
+      this.jobs = data
+      this.jobsUpdated.next([...this.jobs])
+    })
   }
 
   getJobsUpdatedListener() {
@@ -17,7 +23,7 @@ export class JobsService  {
 
   addJob(title: string, content: string) {
     const job: Job = {
-      id: Date.now().toString(),
+      id: null,
       title,
       content
     }
