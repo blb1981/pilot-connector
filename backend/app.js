@@ -1,10 +1,12 @@
 const express = require('express')
 const app = express()
-// const bodyParser = require('body-parser')
 
+const Job = require('./models/job')
+
+// Middleware
 app.use(express.json())
 
-// Add the following headers for CORS
+// Headers for CORS
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader(
@@ -19,7 +21,11 @@ app.use((req, res, next) => {
 })
 
 app.post('/api/jobs', (req, res) => {
-  console.log(req.body)
+  const job = new Job({
+    title: req.body.title,
+    content: req.body.content,
+  })
+  console.log(job)
   res.status(201).json({
     message: 'Job added.',
   })
