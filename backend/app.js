@@ -3,8 +3,6 @@ const app = express()
 // const bodyParser = require('body-parser')
 
 app.use(express.json())
-// app.use(bodyParser.json())
-// app.use(bodyParser.urlencoded([{ extended: false }]))
 
 // Add the following headers for CORS
 app.use((req, res, next) => {
@@ -22,7 +20,9 @@ app.use((req, res, next) => {
 
 app.post('/api/jobs', (req, res) => {
   console.log(req.body)
-  res.send(req.body)
+  res.status(201).json({
+    message: 'Job added.',
+  })
 })
 
 app.get('/api/jobs', (req, res) => {

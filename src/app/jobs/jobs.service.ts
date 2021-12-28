@@ -27,8 +27,14 @@ export class JobsService  {
       title,
       content
     }
-    this.jobs.push(job)
-    this.jobsUpdated.next([...this.jobs])
+    console.log(job)
+    this.http.post<{message: string}>('http://localhost:3000/api/jobs', job).subscribe((data) => {
+      console.log(data)
+
+      // Local copy only gets updated in the success case
+      this.jobs.push(job)
+      this.jobsUpdated.next([...this.jobs])
+    })
   }
 
 }
