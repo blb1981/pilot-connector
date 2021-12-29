@@ -7,7 +7,7 @@ const Job = require('./models/job')
 // Connect to DB
 mongoose
   .connect(
-    `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.izpuw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+    `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.izpuw.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
   )
   .then(() => {
     console.log('Connected to database')
@@ -38,6 +38,7 @@ app.post('/api/jobs', (req, res) => {
     title: req.body.title,
     content: req.body.content,
   })
+  job.save()
   console.log(job)
   res.status(201).json({
     message: 'Job added.',
