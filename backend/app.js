@@ -1,7 +1,20 @@
 const express = require('express')
 const app = express()
+const mongoose = require('mongoose')
 
 const Job = require('./models/job')
+
+// Connect to DB
+mongoose
+  .connect(
+    `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.izpuw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+  )
+  .then(() => {
+    console.log('Connected to database')
+  })
+  .catch(() => {
+    console.log('Connection to database failed')
+  })
 
 // Middleware
 app.use(express.json())
