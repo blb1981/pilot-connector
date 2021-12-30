@@ -21,8 +21,13 @@ export class JobsListComponent implements OnInit, OnDestroy {
       this.jobs = jobs
     })
   }
+  
+  onDelete(id: string) {
+    this.jobsService.deleteJob(id)
+  }
 
   ngOnDestroy() {
     this.jobsSub.unsubscribe()
   }
+
 }

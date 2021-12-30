@@ -33,38 +33,34 @@ app.use((req, res, next) => {
   next()
 })
 
+// Create new job
 app.post('/api/jobs', (req, res) => {
   const job = new Job({
     title: req.body.title,
     content: req.body.content,
   })
-  job.save()
-  console.log(job)
-  res.status(201).json({
-    message: 'Job added.',
+  job.save().then((document) => {
+    res.status(201).json({
+      message: 'success',
+      document,
+    })
   })
 })
 
+// Get all jobs
 app.get('/api/jobs', (req, res) => {
-  posts = [
-    {
-      id: '123f131fadsf',
-      title: 'First post',
-      content: "This is the first post's content",
-    },
-    {
-      id: '123f131fewrr',
-      title: 'Second post',
-      content: "This is the second post's content",
-    },
-    {
-      id: '123f131fzxcv',
-      title: 'Third post',
-      content: "This is the third post's content",
-    },
-  ]
+  Job.find().then((documents) => {
+    res.status(200).json({ message: 'success', documents })
+  })
+})
 
-  res.status(200).json(posts)
+// Delete a job
+app.delete('/api/jobs/:id', (req, res) => {
+  Job.deleteOne({ _id: req.params.id }).then((result) => {
+    res.status(200).json({
+      message: 'success',
+    })
+  })
 })
 
 module.exports = app

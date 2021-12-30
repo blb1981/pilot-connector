@@ -1,6 +1,7 @@
 <h3>Jobs List</h3>
 <ul>
   <li *ngFor="let job of jobs">
-    <a href="#">{{ job.title }}</a>
+    <a href="#">{{ job.title }}</a> - {{ job.content }}
+    <button (click)="onDelete(job.id)">X</button>
   </li>
 </ul>
