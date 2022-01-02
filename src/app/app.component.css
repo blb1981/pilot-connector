@@ -1,0 +1,15 @@
+.active {
+  color: #304772;
+  text-decoration: underline;
+}
+ul {
+  display: flex;
+  list-style-type: none;
+}
+li {
+  margin-right: 1rem;
+}
+a {
+  color: cornflowerblue;
+  text-decoration: none;
+}
