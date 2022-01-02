@@ -13,6 +13,10 @@ const routes: Routes = [
     path: 'create',
     component: JobsCreateComponent,
   },
+  {
+    path: 'edit/:id',
+    component: JobsCreateComponent,
+  },
 ]
 
 @NgModule({

@@ -28,7 +28,7 @@ app.use((req, res, next) => {
   )
   res.setHeader(
     'Access-Control-Allow-Methods',
-    'GET, POST, PATCH, DELETE, OPTIONS'
+    'GET, POST, PATCH, PUT, DELETE, OPTIONS'
   )
   next()
 })
@@ -51,6 +51,42 @@ app.post('/api/jobs', (req, res) => {
 app.get('/api/jobs', (req, res) => {
   Job.find().then((documents) => {
     res.status(200).json({ message: 'success', documents })
+  })
+})
+
+// Get a single job
+app.get('/api/jobs/:id', (req, res) => {
+  Job.findById(req.params.id).then((document) => {
+    if (document) {
+      return res.status(200).json({
+        status: 'success',
+        message: 'Found job',
+        data: { job: document },
+      })
+    } else {
+      res.status(404).json({
+        status: 'fail',
+        message: 'Could not find job',
+      })
+    }
+    res.status(200).json({
+      message: 'success',
+      job: document,
+    })
+  })
+})
+
+// Update a job
+app.put('/api/jobs/:id', (req, res) => {
+  const job = new Job({
+    _id: req.body.id,
+    title: req.body.title,
+    content: req.body.content,
+  })
+  Job.updateOne({ _id: req.params.id }, job).then((result) => {
+    res.status(200).json({
+      message: 'success',
+    })
   })
 })
 

@@ -1,9 +1,9 @@
 <h3>Create New Job</h3>
-<form (submit)="onAddJob(jobForm)" #jobForm="ngForm">
+<form (submit)="onSaveJob(jobForm)" #jobForm="ngForm">
   <input
     type="text"
     name="title"
-    ngModel
+    [ngModel]="job?.title"
     required
     minlength="3"
     placeholder="Job title"
@@ -16,7 +16,7 @@
     id=""
     cols="30"
     rows="10"
-    ngModel
+    [ngModel]="job?.content"
     required
     placeholder="Job description"
     #content="ngModel"
