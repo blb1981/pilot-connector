@@ -4,7 +4,6 @@ import { Subject } from 'rxjs'
 import { map } from 'rxjs/operators'
 
 import { Job } from './job.model'
-import { stringify } from 'querystring'
 
 @Injectable({ providedIn: 'root' })
 export class JobsService {
@@ -15,12 +14,15 @@ export class JobsService {
 
   getJobs() {
     this.http
-      .get<{ message: string; documents: any }>(
-        'http://localhost:3000/api/jobs'
-      )
+      .get<{
+        status: string
+        data: {
+          jobs: [{ _id: string; title: string; content: string }]
+        }
+      }>('http://localhost:3000/api/jobs')
       .pipe(
         map((data) => {
-          return data.documents.map((document) => {
+          return data.data.jobs.map((document) => {
             return {
               title: document.title,
               content: document.content,
@@ -40,9 +42,7 @@ export class JobsService {
   }
 
   getJob(id: string) {
-    // return { ...this.jobs.find((job) => job.id === id) }
     return this.http.get<{
-      message: string
       status: string
       data: {
         job: {
@@ -57,13 +57,19 @@ export class JobsService {
   addJob(title: string, content: string) {
     const job: Job = { id: null, title, content }
     this.http
-      .post<{ message: string; document: any }>(
-        'http://localhost:3000/api/jobs',
-        job
-      )
+      .post<{
+        status: string
+        data: {
+          job: {
+            _id: string
+            title: string
+            content: string
+          }
+        }
+      }>('http://localhost:3000/api/jobs', job)
       .subscribe((data) => {
         // Get id from db to add to frontend
-        const id = data.document._id
+        const id = data.data.job._id
         job.id = id
 
         // Local copy only gets updated in the success case
@@ -75,9 +81,11 @@ export class JobsService {
   updatejob(id: string, title: string, content: string) {
     const job: Job = { id, title, content }
     this.http
-      .put(`http://localhost:3000/api/jobs/${id}`, job)
-      .subscribe((response) => {
-        console.log(response, 'from jobs service')
+      .put<{ status: string; data: null }>(
+        `http://localhost:3000/api/jobs/${id}`,
+        job
+      )
+      .subscribe(() => {
         const updatedJobs = [...this.jobs]
         const oldJobIndex = updatedJobs.findIndex((job) => job.id === id)
         updatedJobs[oldJobIndex] = job
