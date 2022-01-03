@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
+import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { map } from 'rxjs/operators'
 
@@ -10,7 +11,7 @@ export class JobsService {
   private jobs: Job[] = []
   private jobsUpdated = new Subject<Job[]>()
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getJobs() {
     this.http
@@ -75,6 +76,7 @@ export class JobsService {
         // Local copy only gets updated in the success case
         this.jobs.push(job)
         this.jobsUpdated.next([...this.jobs])
+        this.router.navigate(['/'])
       })
   }
 
@@ -91,6 +93,7 @@ export class JobsService {
         updatedJobs[oldJobIndex] = job
         this.jobs = updatedJobs
         this.jobsUpdated.next([...this.jobs])
+        this.router.navigate(['/'])
       })
   }
 

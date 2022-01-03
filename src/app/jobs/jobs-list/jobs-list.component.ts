@@ -10,15 +10,18 @@ import { JobsService } from '../jobs.service'
 })
 export class JobsListComponent implements OnInit, OnDestroy {
   jobs: Job[] = []
+  isLoading: boolean = false
   private jobsSub: Subscription
 
   constructor(public jobsService: JobsService) {}
 
   ngOnInit() {
     this.jobsService.getJobs()
+    this.isLoading = true
     this.jobsSub = this.jobsService
       .getJobsUpdatedListener()
       .subscribe((jobs: Job[]) => {
+        this.isLoading = false
         this.jobs = jobs
       })
   }

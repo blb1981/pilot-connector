@@ -13,7 +13,8 @@ export class JobsCreateComponent implements OnInit {
   enteredTitle = ''
   enteredContent = ''
   job: Job
-  private mode = 'create'
+  isLoading: boolean = false
+  mode = 'create'
   private id: string
 
   constructor(public jobsService: JobsService, public route: ActivatedRoute) {}
@@ -23,7 +24,9 @@ export class JobsCreateComponent implements OnInit {
       if (paramMap.has('id')) {
         this.mode = 'edit'
         this.id = paramMap.get('id')
+        this.isLoading = true
         this.jobsService.getJob(this.id).subscribe((response) => {
+          this.isLoading = false
           this.job = {
             id: response.data.job._id,
             title: response.data.job.title,
@@ -41,7 +44,7 @@ export class JobsCreateComponent implements OnInit {
     if (form.invalid) {
       return
     }
-
+    this.isLoading = true
     if (this.mode === 'create') {
       this.jobsService.addJob(form.value.title, form.value.content)
     } else {

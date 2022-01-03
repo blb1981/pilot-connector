@@ -1,5 +1,6 @@
 <h3>Create New Job</h3>
-<form (submit)="onSaveJob(jobForm)" #jobForm="ngForm">
+<h3 *ngIf="isLoading">Loading</h3>
+<form (submit)="onSaveJob(jobForm)" #jobForm="ngForm" *ngIf="!isLoading">
   <input
     type="text"
     name="title"
@@ -22,5 +23,7 @@
     #content="ngModel"
   ></textarea>
   <span *ngIf="content.invalid">error message</span>
-  <button type="submit">Add Job</button>
+  <button type="submit">
+    {{ mode === 'create' ? 'Create' : 'Save changes' }}
+  </button>
 </form>
