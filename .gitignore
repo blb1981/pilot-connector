@@ -47,3 +47,7 @@ Thumbs.db
 
 # Environment variables
 .env
+
+# Keep images folder but not the images
+backend/images/*
+!backend/images/.gitkeep

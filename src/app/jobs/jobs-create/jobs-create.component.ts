@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 
 import { JobsService } from '../jobs.service'
 import { Job } from '../job.model'
+import { mimeType } from './mime-type.validator'
 
 @Component({
   selector: 'app-jobs-create',
@@ -30,7 +31,10 @@ export class JobsCreateComponent implements OnInit {
       content: new FormControl(null, {
         validators: [Validators.required],
       }),
-      image: new FormControl(null, { validators: [Validators.required] }),
+      image: new FormControl(null, {
+        validators: [Validators.required],
+        asyncValidators: [mimeType],
+      }),
     })
 
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -63,7 +67,11 @@ export class JobsCreateComponent implements OnInit {
     }
     this.isLoading = true
     if (this.mode === 'create') {
-      this.jobsService.addJob(this.form.value.title, this.form.value.content)
+      this.jobsService.addJob(
+        this.form.value.title,
+        this.form.value.content,
+        this.form.value.image
+      )
     } else {
       this.jobsService.updatejob(
         this.id,
