@@ -1,29 +1,40 @@
 <h3>Create New Job</h3>
 <h3 *ngIf="isLoading">Loading</h3>
-<form (submit)="onSaveJob(jobForm)" #jobForm="ngForm" *ngIf="!isLoading">
+
+<form [formGroup]="form" (submit)="onSaveJob()" *ngIf="!isLoading">
   <input
     type="text"
     name="title"
-    [ngModel]="job?.title"
-    required
-    minlength="3"
     placeholder="Job title"
-    #title="ngModel"
+    formControlName="title"
   />
-  <span *ngIf="title.invalid">error message</span>
+  <span *ngIf="form.get('title').invalid">error message</span>
   <br />
+
   <textarea
     name="content"
     id=""
     cols="30"
     rows="10"
-    [ngModel]="job?.content"
-    required
     placeholder="Job description"
-    #content="ngModel"
+    formControlName="content"
   ></textarea>
-  <span *ngIf="content.invalid">error message</span>
-  <button type="submit">
-    {{ mode === 'create' ? 'Create' : 'Save changes' }}
-  </button>
+  <span *ngIf="form.get('content').invalid">error message</span>
+
+  <div>
+    <!-- Material button here -->
+    <button (click)="filePicker.click()">Choose image</button>
+    <input type="file" #filePicker (change)="onImagePicked($event)" />
+    <br /><br />
+  </div>
+
+  <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview">
+    <img [src]="imagePreview" [alt]="form.value.title" />
+  </div>
+
+  <div>
+    <button type="submit">
+      {{ mode === 'create' ? 'Add New Job' : 'Save changes' }}
+    </button>
+  </div>
 </form>
