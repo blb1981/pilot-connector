@@ -9,6 +9,10 @@ const jobSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  imagePath: {
+    type: String,
+    required: true,
+  },
 })
 
 module.exports = mongoose.model('Job', jobSchema)

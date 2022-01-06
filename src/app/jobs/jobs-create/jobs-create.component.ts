@@ -48,6 +48,7 @@ export class JobsCreateComponent implements OnInit {
             id: response.data.job._id,
             title: response.data.job.title,
             content: response.data.job.content,
+            imagePath: null,
           }
           this.form.setValue({
             title: this.job.title,
@@ -76,7 +77,8 @@ export class JobsCreateComponent implements OnInit {
       this.jobsService.updatejob(
         this.id,
         this.form.value.title,
-        this.form.value.content
+        this.form.value.content,
+        null
       )
     }
 

@@ -18,7 +18,7 @@ export class JobsService {
       .get<{
         status: string
         data: {
-          jobs: [{ _id: string; title: string; content: string }]
+          jobs: [{ _id: string; title: string; content: string, imagePath: string }]
         }
       }>('http://localhost:3000/api/jobs')
       .pipe(
@@ -28,6 +28,7 @@ export class JobsService {
               title: document.title,
               content: document.content,
               id: document._id,
+              imagePath: document.imagePath,
             }
           })
         })
@@ -62,7 +63,7 @@ export class JobsService {
     postData.append('content', content)
     postData.append('image', image, title)
 
-    this.http 
+    this.http
       .post<{
         status: string
         data: {
@@ -70,18 +71,20 @@ export class JobsService {
             _id: string
             title: string
             content: string
+            imagePath: string
           }
         }
       }>('http://localhost:3000/api/jobs', postData)
-      .subscribe((data) => {
+      .subscribe((response) => {
         const job: Job = {
-          id: data.data.job._id,
+          id: response.data.job._id,
           title,
           content,
+          imagePath: response.data.job.imagePath,
         }
 
         // Get id from db to add to frontend
-        const id = data.data.job._id
+        const id = response.data.job._id
         // job.id = id
 
         // Local copy only gets updated in the success case
@@ -91,8 +94,8 @@ export class JobsService {
       })
   }
 
-  updatejob(id: string, title: string, content: string) {
-    const job: Job = { id, title, content }
+  updatejob(id: string, title: string, content: string, imagePath: null) {
+    const job: Job = { id, title, content, imagePath }
     this.http
       .put<{ status: string; data: null }>(
         `http://localhost:3000/api/jobs/${id}`,

@@ -30,9 +30,11 @@ const storage = multer.diskStorage({
 
 // Create new job (with image)
 router.post('/', multer({ storage }).single('image'), (req, res) => {
+  const url = req.protocol + '://' + req.get('host')
   const job = new Job({
     title: req.body.title,
     content: req.body.content,
+    imagePath: url + '/images/' + req.file.filename,
   })
   job.save().then((document) => {
     res.status(201).json({
