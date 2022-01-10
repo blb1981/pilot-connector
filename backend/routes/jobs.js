@@ -37,6 +37,7 @@ router.post('/', multer({ storage }).single('image'), (req, res) => {
     imagePath: url + '/images/' + req.file.filename,
   })
   job.save().then((document) => {
+    console.log(document)
     res.status(201).json({
       status: 'success',
       data: {

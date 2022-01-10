@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
@@ -18,6 +19,9 @@ mongoose
 
 // Middleware
 app.use(express.json())
+
+// Middleware for image requests
+app.use('/images', express.static(path.join('backend/images')))
 
 // Headers for CORS
 app.use((req, res, next) => {

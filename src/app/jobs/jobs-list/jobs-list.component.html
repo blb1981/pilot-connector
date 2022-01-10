@@ -4,6 +4,7 @@
   <p *ngIf="jobs.length === 0">No jobs listed, check back later.</p>
   <li *ngFor="let job of jobs">
     <a href="#">{{ job.title }}</a> - {{ job.content }} <br />
+    <p><img class="thumbnail" [src]="job.imagePath" [alt]="job.title" /></p>
     <a [routerLink]="['edit', job.id]">Edit</a>
     <button (click)="onDelete(job.id)">Delete</button>
     <br /><br />
