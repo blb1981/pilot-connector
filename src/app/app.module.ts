@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser'
 import { ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http'
 
+import { MatPaginatorModule } from '@angular/material/paginator'
+
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
 import { JobsCreateComponent } from './jobs/jobs-create/jobs-create.component'
-import { JobsListComponent } from './jobs/jobs-list/jobs-list.component';
+import { JobsListComponent } from './jobs/jobs-list/jobs-list.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 @NgModule({
@@ -17,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
