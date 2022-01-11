@@ -18,7 +18,9 @@ export class JobsService {
       .get<{
         status: string
         data: {
-          jobs: [{ _id: string; title: string; content: string, imagePath: string }]
+          jobs: [
+            { _id: string; title: string; content: string; imagePath: string }
+          ]
         }
       }>('http://localhost:3000/api/jobs')
       .pipe(
@@ -51,6 +53,7 @@ export class JobsService {
           _id: string
           title: string
           content: string
+          imagePath: string
         }
       }
     }>(`http://localhost:3000/api/jobs/${id}`)
@@ -83,27 +86,38 @@ export class JobsService {
           imagePath: response.data.job.imagePath,
         }
 
-        // Get id from db to add to frontend
         const id = response.data.job._id
-        // job.id = id
 
-        // Local copy only gets updated in the success case
         this.jobs.push(job)
         this.jobsUpdated.next([...this.jobs])
         this.router.navigate(['/'])
       })
   }
 
-  updatejob(id: string, title: string, content: string, imagePath: null) {
-    const job: Job = { id, title, content, imagePath }
+  updateJob(id: string, title: string, content: string, image: File | string) {
+    let postData: Job | FormData
+    if (typeof image === 'object') {
+      postData = new FormData()
+      postData.append('id', id)
+      postData.append('title', title)
+      postData.append('content', content)
+      postData.append('image', image, title)
+    } else {
+      console.log(postData)
+      postData = { id, title, content, imagePath: image }
+    }
+
     this.http
-      .put<{ status: string; data: null }>(
-        `http://localhost:3000/api/jobs/${id}`,
-        job
-      )
-      .subscribe(() => {
+      .put(`http://localhost:3000/api/jobs/${id}`, postData)
+      .subscribe((response) => {
         const updatedJobs = [...this.jobs]
         const oldJobIndex = updatedJobs.findIndex((job) => job.id === id)
+        const job: Job = {
+          id,
+          title,
+          content,
+          imagePath: '',
+        }
         updatedJobs[oldJobIndex] = job
         this.jobs = updatedJobs
         this.jobsUpdated.next([...this.jobs])

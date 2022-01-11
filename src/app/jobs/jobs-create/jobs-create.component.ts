@@ -48,12 +48,14 @@ export class JobsCreateComponent implements OnInit {
             id: response.data.job._id,
             title: response.data.job.title,
             content: response.data.job.content,
-            imagePath: null,
+            imagePath: response.data.job.imagePath,
           }
           this.form.setValue({
             title: this.job.title,
             content: this.job.content,
+            image: this.job.imagePath,
           })
+          this.imagePreview = response.data.job.imagePath
         })
       } else {
         this.mode = 'create'
@@ -63,6 +65,7 @@ export class JobsCreateComponent implements OnInit {
   }
 
   onSaveJob() {
+    console.log('this should not be called either')
     if (this.form.invalid) {
       return
     }
@@ -74,11 +77,12 @@ export class JobsCreateComponent implements OnInit {
         this.form.value.image
       )
     } else {
-      this.jobsService.updatejob(
+      console.log('this should not be called yet')
+      this.jobsService.updateJob(
         this.id,
         this.form.value.title,
         this.form.value.content,
-        null
+        this.form.value.image
       )
     }
 

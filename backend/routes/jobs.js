@@ -81,13 +81,21 @@ router.get('/:id', (req, res) => {
 })
 
 // Update a job
-router.put('/:id', (req, res) => {
-  const job = new Job({
+router.put('/:id', multer({ storage }).single('image'), (req, res) => {
+  let imagePath = req.body.imagePath
+  if (req.file) {
+    const url = req.protocol + '://' + req.get('host')
+    imagePath = url + '/images/' + req.file.filename
+  }
+  const job = {
     _id: req.body.id,
     title: req.body.title,
     content: req.body.content,
-  })
-  Job.updateOne({ _id: req.params.id }, job).then((result) => {
+    imagePath,
+  }
+  console.log(job)
+  Job.updateOne({ _id: req.params.id }, job).then((response) => {
+    console.log(response)
     res.status(200).json({
       status: 'success',
       data: null,
