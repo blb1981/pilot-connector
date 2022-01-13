@@ -48,8 +48,16 @@ router.post('/', multer({ storage }).single('image'), (req, res) => {
 })
 
 // Get all jobs
+// Both page and limit query parameter is required for pagination
 router.get('/', (req, res) => {
-  Job.find().then((documents) => {
+  const limit = +req.query.limit // page size
+  const page = +req.query.page
+  const query = Job.find()
+  if (limit && page) {
+    query.skip(limit * (page - 1)).limit(limit)
+  }
+
+  query.then((documents) => {
     res.status(200).json({
       status: 'success',
       data: {
