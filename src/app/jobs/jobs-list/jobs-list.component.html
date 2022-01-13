@@ -10,5 +10,10 @@
     <button (click)="onDelete(job.id)">Delete</button>
     <br /><br />
   </li>
-  <mat-paginator></mat-paginator>
+  <mat-paginator
+    [length]="totalJobs"
+    [pageSize]="jobsPerPage"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onPageChanged($event)"
+  ></mat-paginator>
 </ul>
