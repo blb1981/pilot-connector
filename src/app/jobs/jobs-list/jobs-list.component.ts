@@ -14,29 +14,38 @@ export class JobsListComponent implements OnInit, OnDestroy {
   jobs: Job[] = []
   isLoading: boolean = false
   private jobsSub: Subscription
-  totalJobs = 10
+  totalJobs = 0
   jobsPerPage = 5
-  pageSizeOptions = [2, 5, 10, 25, 50, 100] // TODO: Remove 2 for production
+  currentPage = 1
+  pageSizeOptions = [1, 2, 5, 10, 25, 50, 100] // TODO: Remove 1, 2 for production
 
   constructor(public jobsService: JobsService) {}
 
   ngOnInit() {
-    this.jobsService.getJobs()
+    this.jobsService.getJobs(this.jobsPerPage, 1)
     this.isLoading = true
     this.jobsSub = this.jobsService
       .getJobsUpdatedListener()
-      .subscribe((jobs: Job[]) => {
+      .subscribe((response: { jobs: Job[]; total: number }) => {
         this.isLoading = false
-        this.jobs = jobs
+        this.totalJobs = response.total
+        this.jobs = response.jobs
       })
   }
 
-  onDelete(id: string) {
-    this.jobsService.deleteJob(id)
+  onPageChanged(event: PageEvent) {
+    // console.log(event)
+    this.isLoading = true
+    this.jobsPerPage = event.pageSize
+    this.currentPage = event.pageIndex + 1
+    this.jobsService.getJobs(this.jobsPerPage, this.currentPage)
   }
 
-  onPageChanged(event: PageEvent) {
-    console.log(event)
+  onDelete(id: string) {
+    this.isLoading = true
+    this.jobsService.deleteJob(id).subscribe(() => {
+      this.jobsService.getJobs(this.jobsPerPage, this.currentPage)
+    })
   }
 
   ngOnDestroy() {

@@ -9,35 +9,43 @@ import { Job } from './job.model'
 @Injectable({ providedIn: 'root' })
 export class JobsService {
   private jobs: Job[] = []
-  private jobsUpdated = new Subject<Job[]>()
+  private jobsUpdated = new Subject<{ jobs: Job[]; total: number }>()
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getJobs() {
+  getJobs(limit: number, page: number) {
+    const queryParams = `?limit=${limit}&page=${page}`
     this.http
       .get<{
         status: string
         data: {
+          total: number
           jobs: [
             { _id: string; title: string; content: string; imagePath: string }
           ]
         }
-      }>('http://localhost:3000/api/jobs')
+      }>('http://localhost:3000/api/jobs' + queryParams)
       .pipe(
-        map((data) => {
-          return data.data.jobs.map((document) => {
-            return {
-              title: document.title,
-              content: document.content,
-              id: document._id,
-              imagePath: document.imagePath,
-            }
-          })
+        map((response) => {
+          return {
+            jobs: response.data.jobs.map((document) => {
+              return {
+                title: document.title,
+                content: document.content,
+                id: document._id,
+                imagePath: document.imagePath,
+              }
+            }),
+            total: response.data.total,
+          }
         })
       )
-      .subscribe((transformedDocuments) => {
-        this.jobs = transformedDocuments
-        this.jobsUpdated.next([...this.jobs])
+      .subscribe((transformedDocumentsData) => {
+        this.jobs = transformedDocumentsData.jobs
+        this.jobsUpdated.next({
+          jobs: [...this.jobs],
+          total: transformedDocumentsData.total,
+        })
       })
   }
 
@@ -79,17 +87,20 @@ export class JobsService {
         }
       }>('http://localhost:3000/api/jobs', postData)
       .subscribe((response) => {
-        const job: Job = {
-          id: response.data.job._id,
-          title,
-          content,
-          imagePath: response.data.job.imagePath,
-        }
+        // The following code isn't needed since ngOnInit will run
+        // the same logic
+        // -----------------------
+        // const job: Job = {
+        //   id: response.data.job._id,
+        //   title,
+        //   content,
+        //   imagePath: response.data.job.imagePath,
+        // }
 
-        const id = response.data.job._id
+        // const id = response.data.job._id
 
-        this.jobs.push(job)
-        this.jobsUpdated.next([...this.jobs])
+        // this.jobs.push(job)
+        // this.jobsUpdated.next([...this.jobs])
         this.router.navigate(['/'])
       })
   }
@@ -110,28 +121,32 @@ export class JobsService {
     this.http
       .put(`http://localhost:3000/api/jobs/${id}`, postData)
       .subscribe((response) => {
-        const updatedJobs = [...this.jobs]
-        const oldJobIndex = updatedJobs.findIndex((job) => job.id === id)
-        const job: Job = {
-          id,
-          title,
-          content,
-          imagePath: '',
-        }
-        updatedJobs[oldJobIndex] = job
-        this.jobs = updatedJobs
-        this.jobsUpdated.next([...this.jobs])
+        // The following code isn't needed since ngOnInit will run
+        // the same logic
+        // -----------------------
+        // const updatedJobs = [...this.jobs]
+        // const oldJobIndex = updatedJobs.findIndex((job) => job.id === id)
+        // const job: Job = {
+        //   id,
+        //   title,
+        //   content,
+        //   imagePath: '',
+        // }
+        // updatedJobs[oldJobIndex] = job
+        // this.jobs = updatedJobs
+        // this.jobsUpdated.next([...this.jobs])
         this.router.navigate(['/'])
       })
   }
 
   deleteJob(id: string) {
-    this.http
-      .delete<{ message: string }>(`http://localhost:3000/api/jobs/${id}`)
-      .subscribe(() => {
-        const updatedJobs = this.jobs.filter((job) => job.id !== id)
-        this.jobs = updatedJobs
-        this.jobsUpdated.next([...this.jobs])
-      })
+    return this.http.delete<{ message: string }>(
+      `http://localhost:3000/api/jobs/${id}`
+    )
+    // .subscribe(() => {
+    //   const updatedJobs = this.jobs.filter((job) => job.id !== id)
+    //   this.jobs = updatedJobs
+    //   this.jobsUpdated.next([...this.jobs])
+    // })
   }
 }

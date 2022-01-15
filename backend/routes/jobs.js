@@ -37,7 +37,7 @@ router.post('/', multer({ storage }).single('image'), (req, res) => {
     imagePath: url + '/images/' + req.file.filename,
   })
   job.save().then((document) => {
-    console.log(document)
+    
     res.status(201).json({
       status: 'success',
       data: {
@@ -53,18 +53,25 @@ router.get('/', (req, res) => {
   const limit = +req.query.limit // page size
   const page = +req.query.page
   const query = Job.find()
+  let fetchedDocuments
   if (limit && page) {
     query.skip(limit * (page - 1)).limit(limit)
   }
 
-  query.then((documents) => {
-    res.status(200).json({
-      status: 'success',
-      data: {
-        jobs: documents,
-      },
+  query
+    .then((documents) => {
+      fetchedDocuments = documents
+      return Job.count()
     })
-  })
+    .then((count) => {
+      res.status(200).json({
+        status: 'success',
+        data: {
+          total: count,
+          jobs: fetchedDocuments,
+        },
+      })
+    })
 })
 
 // Get a single job
@@ -101,9 +108,7 @@ router.put('/:id', multer({ storage }).single('image'), (req, res) => {
     content: req.body.content,
     imagePath,
   }
-  console.log(job)
   Job.updateOne({ _id: req.params.id }, job).then((response) => {
-    console.log(response)
     res.status(200).json({
       status: 'success',
       data: null,
