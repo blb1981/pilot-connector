@@ -1,0 +1,32 @@
+<h3>Login</h3>
+<h3 *ngIf="isLoading">Loading</h3>
+<form (submit)="onSubmit(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
+  <div>
+    <input
+      type="email"
+      name="email"
+      ngModel
+      placeholder="Email address"
+      #emailInput="ngModel"
+      required
+      email
+    />
+    <br />
+    <span *ngIf="emailInput.invalid">Please enter a valid email</span>
+  </div>
+  <div>
+    <input
+      type="password"
+      name="password"
+      ngModel
+      placeholder="Password"
+      #passwordInput="ngModel"
+      required
+    />
+    <br />
+    <span *ngIf="passwordInput.invalid">Please enter a valid password</span>
+  </div>
+  <div>
+    <button type="submit">Login</button>
+  </div>
+</form>

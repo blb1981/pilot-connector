@@ -12,7 +12,7 @@ import { JobsService } from '../jobs.service'
 })
 export class JobsListComponent implements OnInit, OnDestroy {
   jobs: Job[] = []
-  isLoading: boolean = false
+  isLoading = false
   private jobsSub: Subscription
   totalJobs = 0
   jobsPerPage = 5
