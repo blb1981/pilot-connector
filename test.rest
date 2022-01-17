@@ -11,3 +11,12 @@ Content-Type: application/json
   "title": "Testing 123 123 13",
   "content": "This is my test, hop you like it"
 }
+
+###
+POST http://localhost:3000/api/users/register
+Content-Type: application/json
+
+{
+  "email": "f@t.com",
+  "password": "abc123"
+}
