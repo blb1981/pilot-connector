@@ -3,6 +3,7 @@ const router = express.Router()
 const multer = require('multer')
 
 const Job = require('../models/job')
+const { checkAuth } = require('../middleware/checkAuth')
 
 // Helper for file extensions
 const MIME_TYPE_MAP = {
@@ -29,7 +30,7 @@ const storage = multer.diskStorage({
 })
 
 // Create new job (with image)
-router.post('/', multer({ storage }).single('image'), (req, res) => {
+router.post('/', checkAuth, multer({ storage }).single('image'), (req, res) => {
   const url = req.protocol + '://' + req.get('host')
   const job = new Job({
     title: req.body.title,
@@ -37,7 +38,6 @@ router.post('/', multer({ storage }).single('image'), (req, res) => {
     imagePath: url + '/images/' + req.file.filename,
   })
   job.save().then((document) => {
-    
     res.status(201).json({
       status: 'success',
       data: {
@@ -96,28 +96,33 @@ router.get('/:id', (req, res) => {
 })
 
 // Update a job
-router.put('/:id', multer({ storage }).single('image'), (req, res) => {
-  let imagePath = req.body.imagePath
-  if (req.file) {
-    const url = req.protocol + '://' + req.get('host')
-    imagePath = url + '/images/' + req.file.filename
-  }
-  const job = {
-    _id: req.body.id,
-    title: req.body.title,
-    content: req.body.content,
-    imagePath,
-  }
-  Job.updateOne({ _id: req.params.id }, job).then((response) => {
-    res.status(200).json({
-      status: 'success',
-      data: null,
+router.put(
+  '/:id',
+  checkAuth,
+  multer({ storage }).single('image'),
+  (req, res) => {
+    let imagePath = req.body.imagePath
+    if (req.file) {
+      const url = req.protocol + '://' + req.get('host')
+      imagePath = url + '/images/' + req.file.filename
+    }
+    const job = {
+      _id: req.body.id,
+      title: req.body.title,
+      content: req.body.content,
+      imagePath,
+    }
+    Job.updateOne({ _id: req.params.id }, job).then((response) => {
+      res.status(200).json({
+        status: 'success',
+        data: null,
+      })
     })
-  })
-})
+  }
+)
 
 // Delete a job
-router.delete('/:id', (req, res) => {
+router.delete('/:id', checkAuth, (req, res) => {
   Job.deleteOne({ _id: req.params.id }).then((result) => {
     res.status(200).json({
       status: 'success',
