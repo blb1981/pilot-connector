@@ -8,12 +8,20 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   createUser(email: string, password: string) {
-    console.log('from authservice ...')
-
     const authData: AuthData = { email, password }
 
     this.http
       .post('http://localhost:3000/api/users/register', authData)
+      .subscribe((response) => {
+        console.log(response)
+      })
+  }
+
+  login(email: string, password: string) {
+    const authData: AuthData = { email, password }
+
+    this.http
+      .post('http://localhost:3000/api/users/login', authData)
       .subscribe((response) => {
         console.log(response)
       })

@@ -16,7 +16,9 @@ router.post('/register', (req, res) => {
       .then((document) => {
         res.status(201).json({
           status: 'success',
-          data: document,
+          data: {
+            user: document,
+          },
         })
       })
       .catch((err) => {
@@ -30,10 +32,14 @@ router.post('/register', (req, res) => {
   })
 })
 
+// TODO: Remove comments from this route
 router.post('/login', (req, res) => {
   User.findOne({ email: req.body.email }).then((user) => {
+    let fetchedUser
+
     // If email not found
     if (!user) {
+      console.log('email not found')
       return res.status(401).json({
         status: 'fail',
         data: {
@@ -41,13 +47,15 @@ router.post('/login', (req, res) => {
         },
       })
     }
-
     // Email found
-    bcrypt
+    fetchedUser = user
+    return bcrypt
       .compare(req.body.password, user.password)
       .then((result) => {
+        console.log('email found')
         // If passwords don't match
         if (!result) {
+          console.log("passwords don't match")
           return res.status(401).json({
             status: 'fail',
             data: {
@@ -56,8 +64,9 @@ router.post('/login', (req, res) => {
           })
         }
         // Password matches, create JWT
+        console.log('password matches, create jWT')
         const token = jwt.sign(
-          { email: user.email, id: user._id },
+          { email: fetchedUser.email, id: fetchedUser._id },
           process.env.JWT_SECRET,
           {
             expiresIn: process.env.JWT_EXPIRES_IN,
@@ -71,7 +80,9 @@ router.post('/login', (req, res) => {
         })
       })
       .catch((err) => {
+        console.log(err)
         // Some other type of error
+        console.log('some other type of error')
         return res.status(401).json({
           status: 'fail',
           data: {
