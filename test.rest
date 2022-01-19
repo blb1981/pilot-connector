@@ -20,3 +20,21 @@ Content-Type: application/json
   "email": "f@t.com",
   "password": "abc123"
 }
+
+### GOOD LOGIN REQUEST
+POST http://localhost:3000/api/users/login
+Content-Type: application/json
+
+{
+  "email": "f@t.com",
+  "password": "abc123"
+}
+
+### BAD LOGIN REQUEST
+POST http://localhost:3000/api/users/login
+Content-Type: application/json
+
+{
+  "email": "flkjsdflasf0a9s7f09as8df@asdfasdfasd97a0sf987.com",
+  "password": "abc123"
+}
