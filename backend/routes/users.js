@@ -32,7 +32,6 @@ router.post('/register', (req, res) => {
   })
 })
 
-// TODO: Remove comments from this route
 router.post('/login', (req, res) => {
   User.findOne({ email: req.body.email }).then((user) => {
     let fetchedUser
