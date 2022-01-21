@@ -1,0 +1,24 @@
+<nav>
+  <h1>{{ title }}</h1>
+  <h3>{{ summary }}</h3>
+  <ul>
+    <li>
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Home</a
+      >
+    </li>
+    <li *ngIf="isAuthenticated">
+      <a routerLink="/create" routerLinkActive="active">Create</a>
+    </li>
+    <li *ngIf="!isAuthenticated">
+      <a routerLink="/login" routerLinkActive="active">Login</a>
+    </li>
+    <li *ngIf="!isAuthenticated">
+      <a routerLink="/register" routerLinkActive="active">Register</a>
+    </li>
+    <li *ngIf="isAuthenticated"><button>Logout</button></li>
+  </ul>
+</nav>

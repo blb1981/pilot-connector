@@ -5,7 +5,4 @@ import { Component } from '@angular/core'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
-  title = 'Pilot Connector'
-  summary = 'Free job postings for pilots'
-}
+export class AppComponent {}
