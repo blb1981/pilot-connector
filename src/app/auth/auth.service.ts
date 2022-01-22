@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { Router } from '@angular/router'
 import { HttpClient } from '@angular/common/http'
 import { Subject } from 'rxjs'
 
@@ -10,7 +11,7 @@ export class AuthService {
   private authStatusListener = new Subject<boolean>()
   private isAuthenticated = false
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getToken() {
     return this.token
@@ -50,11 +51,13 @@ export class AuthService {
           this.authStatusListener.next(true)
         }
       })
+    this.router.navigate(['/'])
   }
 
   logout() {
     this.token = null
     this.isAuthenticated = false
     this.authStatusListener.next(false)
+    this.router.navigate(['/'])
   }
 }
