@@ -1,5 +1,5 @@
 <h3>Login</h3>
-<h3 *ngIf="isLoading">Loading</h3>
+<h3 *ngIf="isLoading">Login Loading</h3>
 <form (submit)="onSubmit(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
   <div>
     <input

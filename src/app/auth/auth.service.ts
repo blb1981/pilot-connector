@@ -32,6 +32,7 @@ export class AuthService {
       .post('http://localhost:3000/api/users/register', authData)
       .subscribe((response) => {
         console.log(response)
+        this.router.navigate(['login'])
       })
   }
 
@@ -49,9 +50,9 @@ export class AuthService {
         if (token) {
           this.isAuthenticated = true
           this.authStatusListener.next(true)
+          this.router.navigate(['/'])
         }
       })
-    this.router.navigate(['/'])
   }
 
   logout() {
