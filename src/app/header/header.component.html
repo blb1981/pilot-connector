@@ -19,6 +19,8 @@
     <li *ngIf="!isAuthenticated">
       <a routerLink="/register" routerLinkActive="active">Register</a>
     </li>
-    <li *ngIf="isAuthenticated"><button>Logout</button></li>
+    <li *ngIf="isAuthenticated">
+      <button (click)="onLogout()">Logout</button>
+    </li>
   </ul>
 </nav>
