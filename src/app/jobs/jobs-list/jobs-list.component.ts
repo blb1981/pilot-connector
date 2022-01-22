@@ -41,7 +41,6 @@ export class JobsListComponent implements OnInit, OnDestroy {
     this.authStatusSubscription = this.authService
       .getAuthStatusListener()
       .subscribe((isAuthenticated) => {
-        console.log(isAuthenticated)
         this.isAuthenticated = isAuthenticated
       })
   }
