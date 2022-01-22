@@ -71,6 +71,7 @@ router.post('/login', (req, res) => {
           status: 'success',
           data: {
             token,
+            expiresIn: parseInt(process.env.JWT_EXPIRES_IN_SECONDS),
           },
         })
       })
