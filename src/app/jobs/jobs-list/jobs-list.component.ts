@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Subscription } from 'rxjs'
 import { PageEvent } from '@angular/material/paginator'
 
+import { AuthService } from 'src/app/auth/auth.service'
 import { Job } from '../job.model'
 import { JobsService } from '../jobs.service'
 
@@ -18,8 +19,13 @@ export class JobsListComponent implements OnInit, OnDestroy {
   jobsPerPage = 5
   currentPage = 1
   pageSizeOptions = [1, 2, 5, 10, 25, 50, 100] // TODO: Remove 1, 2 for production
+  private authStatusSubscription: Subscription
+  isAuthenticated = false
 
-  constructor(public jobsService: JobsService) {}
+  constructor(
+    public jobsService: JobsService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.jobsService.getJobs(this.jobsPerPage, 1)
@@ -30,6 +36,13 @@ export class JobsListComponent implements OnInit, OnDestroy {
         this.isLoading = false
         this.totalJobs = response.total
         this.jobs = response.jobs
+      })
+    this.isAuthenticated = this.authService.getIsAuth()
+    this.authStatusSubscription = this.authService
+      .getAuthStatusListener()
+      .subscribe((isAuthenticated) => {
+        console.log(isAuthenticated)
+        this.isAuthenticated = isAuthenticated
       })
   }
 
@@ -50,5 +63,6 @@ export class JobsListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.jobsSub.unsubscribe()
+    this.authStatusSubscription.unsubscribe()
   }
 }
