@@ -21,7 +21,13 @@ export class JobsService {
         data: {
           total: number
           jobs: [
-            { _id: string; title: string; content: string; imagePath: string }
+            {
+              _id: string
+              title: string
+              content: string
+              imagePath: string
+              user: string
+            }
           ]
         }
       }>('http://localhost:3000/api/jobs' + queryParams)
@@ -34,6 +40,7 @@ export class JobsService {
                 content: document.content,
                 id: document._id,
                 imagePath: document.imagePath,
+                user: document.user,
               }
             }),
             total: response.data.total,
@@ -41,6 +48,7 @@ export class JobsService {
         })
       )
       .subscribe((transformedDocumentsData) => {
+        console.log(transformedDocumentsData)
         this.jobs = transformedDocumentsData.jobs
         this.jobsUpdated.next({
           jobs: [...this.jobs],
