@@ -22,6 +22,7 @@ export class JobsListComponent implements OnInit, OnDestroy {
   pageSizeOptions = [1, 2, 5, 10, 25, 50, 100] // TODO: Remove 1, 2 for production
   private authStatusSubscription: Subscription
   isAuthenticated = false
+  userId: string
 
   constructor(
     public jobsService: JobsService,
@@ -29,8 +30,9 @@ export class JobsListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.jobsService.getJobs(this.jobsPerPage, 1)
+    this.jobsService.getJobs(this.jobsPerPage, this.currentPage)
     this.isLoading = true
+    this.userId = this.authService.getUserId()
     this.jobsSub = this.jobsService
       .getJobsUpdatedListener()
       .subscribe((response: { jobs: Job[]; total: number }) => {
@@ -43,6 +45,7 @@ export class JobsListComponent implements OnInit, OnDestroy {
       .getAuthStatusListener()
       .subscribe((isAuthenticated) => {
         this.isAuthenticated = isAuthenticated
+        this.userId = this.authService.getUserId()
       })
   }
 

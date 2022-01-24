@@ -70,6 +70,7 @@ export class JobsService {
           title: string
           content: string
           imagePath: string
+          user: string
         }
       }
     }>(`http://localhost:3000/api/jobs/${id}`)
@@ -123,7 +124,7 @@ export class JobsService {
       postData.append('image', image, title)
     } else {
       console.log(postData)
-      postData = { id, title, content, imagePath: image }
+      postData = { id, title, content, imagePath: image, user: null }
     }
 
     this.http

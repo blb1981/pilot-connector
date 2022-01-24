@@ -72,6 +72,7 @@ router.post('/login', (req, res) => {
           data: {
             token,
             expiresIn: parseInt(process.env.JWT_EXPIRES_IN_SECONDS),
+            userId: fetchedUser._id,
           },
         })
       })

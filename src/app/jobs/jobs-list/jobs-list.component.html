@@ -10,7 +10,7 @@
       <img class="thumbnail" [src]="job.imagePath" [alt]="job.title" />
     </p>
 
-    <div *ngIf="isAuthenticated">
+    <div *ngIf="isAuthenticated && userId === job.user">
       <a [routerLink]="['edit', job.id]">Edit</a>
       <button (click)="onDelete(job.id)">Delete</button>
     </div>

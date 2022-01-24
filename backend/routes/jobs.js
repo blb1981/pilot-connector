@@ -112,6 +112,7 @@ router.put(
       title: req.body.title,
       content: req.body.content,
       imagePath,
+      user: req.userData.id,
     }
     Job.updateOne({ _id: req.params.id, user: req.userData.id }, job).then(
       (response) => {

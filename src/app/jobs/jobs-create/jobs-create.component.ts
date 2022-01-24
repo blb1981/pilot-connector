@@ -49,6 +49,7 @@ export class JobsCreateComponent implements OnInit {
             title: response.data.job.title,
             content: response.data.job.content,
             imagePath: response.data.job.imagePath,
+            user: response.data.job.user,
           }
           this.form.setValue({
             title: this.job.title,
