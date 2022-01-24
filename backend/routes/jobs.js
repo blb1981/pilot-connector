@@ -113,23 +113,50 @@ router.put(
       content: req.body.content,
       imagePath,
     }
-    Job.updateOne({ _id: req.params.id }, job).then((response) => {
-      res.status(200).json({
-        status: 'success',
-        data: null,
-      })
-    })
+    Job.updateOne({ _id: req.params.id, user: req.userData.id }, job).then(
+      (response) => {
+        if (response.modifiedCount > 0) {
+          res.status(200).json({
+            status: 'success',
+            data: {
+              message: 'Job updated',
+            },
+          })
+        } else {
+          res.status(401).json({
+            status: 'fail',
+            data: {
+              message: 'Not authorized',
+            },
+          })
+        }
+      }
+    )
   }
 )
 
 // Delete a job
 router.delete('/:id', checkAuth, (req, res) => {
-  Job.deleteOne({ _id: req.params.id }).then((result) => {
-    res.status(200).json({
-      status: 'success',
-      data: null,
-    })
-  })
+  Job.deleteOne({ _id: req.params.id, user: req.userData.id }).then(
+    (response) => {
+      if (response.deletedCount > 0) {
+        res.status(200).json({
+          status: 'success',
+          data: {
+            message: 'Job deleted',
+          },
+        })
+      } else {
+        res.status(401).json({
+          status: 'fail',
+          data: {
+            message: 'Not authorized',
+          },
+        })
+      }
+      console.log(response)
+    }
+  )
 })
 
 module.exports = router
