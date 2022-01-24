@@ -5,6 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { MatPaginatorModule } from '@angular/material/paginator'
+import { MatToolbarModule } from '@angular/material/toolbar'
 
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
@@ -33,6 +34,7 @@ import { RegisterComponent } from './auth/register/register.component'
     HttpClientModule,
     BrowserAnimationsModule,
     MatPaginatorModule,
+    MatToolbarModule,
   ],
   providers: [
     {
