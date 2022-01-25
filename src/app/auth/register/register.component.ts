@@ -5,7 +5,7 @@ import { AuthService } from '../auth.service'
 
 @Component({
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  styleUrls: ['../auth-styles.css'],
 })
 export class RegisterComponent {
   isLoading = false

@@ -1,12 +1,1 @@
-form,
-h3 {
-  display: grid;
-  place-items: center;
-}
-input,
-button {
-  margin-bottom: 1rem;
-}
-span {
-  color: red;
-}
+
