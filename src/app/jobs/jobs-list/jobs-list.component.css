@@ -1,15 +1,4 @@
 .thumbnail {
-  width: 200px;
   display: block;
-  height: auto;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+  width: 100%;
 }
-
-/* ul {
-  display: flex;
-  width: 80%;
-}
-
-li {
-  margin-right: 2rem;
-} */

@@ -2,19 +2,23 @@
 <h3 *ngIf="isLoading">Loading</h3>
 <ul *ngIf="!isLoading">
   <p *ngIf="jobs.length === 0">No jobs listed, check back later.</p>
-  <li *ngFor="let job of jobs">
-    <h4>{{ job.title }}</h4>
 
-    <p>
-      {{ job.content }} <br />
+  <mat-card *ngFor="let job of jobs">
+    <mat-card-header>
+      <mat-card-title>{{ job.title }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ job.content }}</p>
       <img class="thumbnail" [src]="job.imagePath" [alt]="job.title" />
-    </p>
+      <mat-card-actions *ngIf="isAuthenticated && userId === job.user">
+        <a mat-button [routerLink]="['edit', job.id]">Edit</a>
+        <button mat-button color="warn" (click)="onDelete(job.id)">
+          Delete
+        </button>
+      </mat-card-actions>
+    </mat-card-content>
+  </mat-card>
 
-    <div *ngIf="isAuthenticated && userId === job.user">
-      <a [routerLink]="['edit', job.id]">Edit</a>
-      <button (click)="onDelete(job.id)">Delete</button>
-    </div>
-  </li>
   <mat-paginator
     *ngIf="jobs.length > 0"
     [length]="totalJobs"
