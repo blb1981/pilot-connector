@@ -1,5 +1,7 @@
 <mat-toolbar class="toolbar" color="primary">
-  <span>{{ title }}</span>
+  <span
+    ><a routerLink="/">{{ title }}</a></span
+  >
   <div class="spacer"></div>
 
   <ul class="right-menu">
@@ -21,7 +23,7 @@
       <a routerLink="/register" routerLinkActive="active">Register</a>
     </li>
     <li *ngIf="isAuthenticated">
-      <button (click)="onLogout()">Logout</button>
+      <button mat-raised-button (click)="onLogout()">Logout</button>
     </li>
   </ul>
 </mat-toolbar>

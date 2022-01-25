@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
+import { MatButtonModule } from '@angular/material/button'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatToolbarModule } from '@angular/material/toolbar'
 
@@ -33,6 +34,7 @@ import { RegisterComponent } from './auth/register/register.component'
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatButtonModule,
     MatPaginatorModule,
     MatToolbarModule,
   ],

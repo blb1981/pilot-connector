@@ -3,21 +3,28 @@ ul {
 }
 li {
   list-style-type: none;
-  margin-right: 0.75rem;
+  margin-right: 1rem;
 }
 a {
   color: white;
   text-decoration: none;
 }
+
 a.active {
+  font-size: 14px;
   text-decoration: underline;
+  font-weight: 500;
 }
 .toolbar {
   display: flex;
 }
 .spacer {
-  flex: 1;
+  flex: 1 1;
 }
 .right-menu {
   display: flex;
+}
+.right-menu a {
+  font-size: 1rem;
+  font-weight: 400;
 }
