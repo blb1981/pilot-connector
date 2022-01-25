@@ -1,12 +1,32 @@
-form,
-h3 {
-  display: grid;
-  place-items: center;
+.card {
+  /* background-color: rgba(0, 0, 0, 0.05); */
+  width: 75vw;
+  margin: 0 auto;
+  text-align: center;
 }
-input,
-button {
+.card-header {
+  justify-content: center;
   margin-bottom: 1rem;
 }
-span {
-  color: red;
+form {
+  width: 90%;
+  margin: 0 auto;
+}
+.form-field {
+  width: 100%;
+}
+.button-spinner {
+  padding: 1rem 0;
+  
+}
+.submit-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (min-width: 600px) {
+  .card {
+    max-width: 20rem;
+  }
 }

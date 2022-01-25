@@ -5,7 +5,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { MatButtonModule } from '@angular/material/button'
+import { MatCardModule } from '@angular/material/card'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
 import { MatPaginatorModule } from '@angular/material/paginator'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatToolbarModule } from '@angular/material/toolbar'
 
 import { AppComponent } from './app.component'
@@ -35,7 +39,11 @@ import { RegisterComponent } from './auth/register/register.component'
     HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
     MatToolbarModule,
   ],
   providers: [
