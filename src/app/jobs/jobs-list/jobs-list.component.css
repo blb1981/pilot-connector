@@ -2,3 +2,7 @@
   display: block;
   width: 100%;
 }
+.jobs-list-container {
+  max-width: 30rem;
+  margin: 0 auto;
+}
