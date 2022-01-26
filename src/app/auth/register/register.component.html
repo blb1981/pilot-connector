@@ -34,6 +34,7 @@
           #passwordInput="ngModel"
           required
           minlength="6"
+          [disabled]="isLoading"
         />
         <mat-error *ngIf="passwordInput.invalid"
           >Please enter a valid password</mat-error
@@ -46,11 +47,10 @@
             color="accent"
             type="submit"
             class="submit-button"
+            [disabled]="isLoading"
           >
             <span *ngIf="!isLoading">Register</span>
-            <span *ngIf="isLoading" class="button-spinner">
-              <mat-spinner diameter="30"></mat-spinner>
-            </span>
+            <span *ngIf="isLoading" class="button-spinner"> ...loading </span>
           </button>
         </div>
       </mat-card-actions>

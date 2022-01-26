@@ -33,8 +33,6 @@
       </mat-form-field>
 
       <mat-card-actions>
-        <!-- Material button here -->
-        <!-- TODO: Button below would submit form on  -->
         <button mat-raised-button (click)="filePicker.click()">
           Choose Image
         </button>
@@ -55,8 +53,15 @@
       </mat-card-actions>
 
       <mat-card-actions>
-        <button type="submit" mat-raised-button color="primary">
-          {{ mode === 'create' ? 'Add New Job' : 'Save changes' }}
+        <button
+          type="submit"
+          mat-raised-button
+          color="accent"
+          [disabled]="isLoading"
+        >
+          {{ mode === 'create' ? 'Add New Job' : '' }}
+          {{ mode !== 'create' ? 'Save Changes' : '' }}
+          {{ isLoading ? '...loading' : '' }}
         </button>
       </mat-card-actions>
     </form>

@@ -43,11 +43,10 @@
           color="accent"
           type="submit"
           class="submit-button"
+          [disabled]="isLoading"
         >
           <span *ngIf="!isLoading">Login</span>
-          <span *ngIf="isLoading" class="button-spinner">
-            <mat-spinner diameter="30"></mat-spinner>
-          </span>
+          <span *ngIf="isLoading" class="button-spinner"> ...loading </span>
         </button>
       </mat-card-actions>
     </form>
