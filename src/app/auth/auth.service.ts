@@ -36,9 +36,13 @@ export class AuthService {
 
     this.http
       .post('http://localhost:3000/api/users/register', authData)
-      .subscribe((response) => {
-        console.log(response)
-        this.router.navigate(['login'])
+      .subscribe({
+        complete: () => {
+          this.router.navigate(['/login'])
+        },
+        error: () => {
+          this.authStatusListener.next(false)
+        },
       })
   }
 
@@ -50,23 +54,28 @@ export class AuthService {
         status: string
         data: { token: string; expiresIn: number; userId: string }
       }>('http://localhost:3000/api/users/login', authData)
-      .subscribe((response) => {
-        const token = response.data.token
-        this.token = token
-        if (token) {
-          const expiresInDuration = response.data.expiresIn
-          this.setAuthTimer(expiresInDuration)
-          this.isAuthenticated = true
-          this.userId = response.data.userId
-          this.authStatusListener.next(true)
-          const now = new Date()
-          const expirationDate = new Date(
-            now.getTime() + expiresInDuration * 1000
-          )
-          console.log(expirationDate)
-          this.saveAuthData(token, expirationDate, this.userId)
-          this.router.navigate(['/'])
-        }
+      .subscribe({
+        next: (response) => {
+          const token = response.data.token
+          this.token = token
+          if (token) {
+            const expiresInDuration = response.data.expiresIn
+            this.setAuthTimer(expiresInDuration)
+            this.isAuthenticated = true
+            this.userId = response.data.userId
+            this.authStatusListener.next(true)
+            const now = new Date()
+            const expirationDate = new Date(
+              now.getTime() + expiresInDuration * 1000
+            )
+            console.log(expirationDate)
+            this.saveAuthData(token, expirationDate, this.userId)
+            this.router.navigate(['/'])
+          }
+        },
+        error: () => {
+          this.authStatusListener.next(false)
+        },
       })
   }
 
