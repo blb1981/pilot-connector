@@ -25,6 +25,7 @@ router.post('/register', (req, res) => {
         res.status(400).json({
           status: 'fail',
           data: {
+            message: 'Invalid username or password',
             error: err,
           },
         })
