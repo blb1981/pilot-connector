@@ -59,8 +59,13 @@ export class JobsListComponent implements OnInit, OnDestroy {
 
   onDelete(id: string) {
     this.isLoading = true
-    this.jobsService.deleteJob(id).subscribe(() => {
-      this.jobsService.getJobs(this.jobsPerPage, this.currentPage)
+    this.jobsService.deleteJob(id).subscribe({
+      next: () => {
+        this.jobsService.getJobs(this.jobsPerPage, this.currentPage)
+      },
+      error: (error) => {
+        this.isLoading = false
+      },
     })
   }
 

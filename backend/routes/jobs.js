@@ -38,14 +38,22 @@ router.post('/', checkAuth, multer({ storage }).single('image'), (req, res) => {
     imagePath: url + '/images/' + req.file.filename,
     user: req.userData.id,
   })
-  job.save().then((document) => {
-    res.status(201).json({
-      status: 'success',
-      data: {
-        job: document,
-      },
+  job
+    .save()
+    .then((document) => {
+      res.status(201).json({
+        status: 'success',
+        data: {
+          job: document,
+        },
+      })
     })
-  })
+    .catch((error) => {
+      res.status(500).json({
+        status: 'error',
+        message: 'Server error',
+      })
+    })
 })
 
 // Get all jobs
@@ -73,27 +81,40 @@ router.get('/', (req, res) => {
         },
       })
     })
+    .catch((error) => {
+      res.status(500).json({
+        status: 'error',
+        message: 'Server error',
+      })
+    })
 })
 
 // Get a single job
 router.get('/:id', (req, res) => {
-  Job.findById(req.params.id).then((document) => {
-    if (document) {
-      return res.status(200).json({
-        status: 'success',
-        data: {
-          job: document,
-        },
+  Job.findById(req.params.id)
+    .then((document) => {
+      if (document) {
+        return res.status(200).json({
+          status: 'success',
+          data: {
+            job: document,
+          },
+        })
+      } else {
+        res.status(404).json({
+          status: 'fail',
+          data: {
+            message: 'Could not find job',
+          },
+        })
+      }
+    })
+    .catch((error) => {
+      res.status(500).json({
+        status: 'error',
+        message: 'Server error',
       })
-    } else {
-      res.status(404).json({
-        status: 'fail',
-        data: {
-          message: 'Could not find job',
-        },
-      })
-    }
-  })
+    })
 })
 
 // Update a job
@@ -114,8 +135,8 @@ router.put(
       imagePath,
       user: req.userData.id,
     }
-    Job.updateOne({ _id: req.params.id, user: req.userData.id }, job).then(
-      (response) => {
+    Job.updateOne({ _id: req.params.id, user: req.userData.id }, job)
+      .then((response) => {
         if (response.modifiedCount > 0) {
           res.status(200).json({
             status: 'success',
@@ -131,15 +152,20 @@ router.put(
             },
           })
         }
-      }
-    )
+      })
+      .catch((error) => {
+        res.status(500).json({
+          status: 'error',
+          message: 'Server error',
+        })
+      })
   }
 )
 
 // Delete a job
 router.delete('/:id', checkAuth, (req, res) => {
-  Job.deleteOne({ _id: req.params.id, user: req.userData.id }).then(
-    (response) => {
+  Job.deleteOne({ _id: req.params.id, user: req.userData.id })
+    .then((response) => {
       if (response.deletedCount > 0) {
         res.status(200).json({
           status: 'success',
@@ -155,9 +181,13 @@ router.delete('/:id', checkAuth, (req, res) => {
           },
         })
       }
-      console.log(response)
-    }
-  )
+    })
+    .catch((error) => {
+      res.status(500).json({
+        status: 'error',
+        message: 'Server error',
+      })
+    })
 })
 
 module.exports = router

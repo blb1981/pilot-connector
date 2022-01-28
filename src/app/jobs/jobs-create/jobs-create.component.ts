@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, ParamMap } from '@angular/router'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { Subscription } from 'rxjs'
 
+import { AuthService } from 'src/app/auth/auth.service'
 import { JobsService } from '../jobs.service'
 import { Job } from '../job.model'
 import { mimeType } from './mime-type.validator'
@@ -11,7 +13,7 @@ import { mimeType } from './mime-type.validator'
   templateUrl: './jobs-create.component.html',
   styleUrls: ['./jobs-create.component.css'],
 })
-export class JobsCreateComponent implements OnInit {
+export class JobsCreateComponent implements OnInit, OnDestroy {
   enteredTitle = ''
   enteredContent = ''
   job: Job
@@ -20,10 +22,22 @@ export class JobsCreateComponent implements OnInit {
   imagePreview: string
   mode = 'create'
   private id: string
+  private authStatusSubscription: Subscription
 
-  constructor(public jobsService: JobsService, public route: ActivatedRoute) {}
+  constructor(
+    public jobsService: JobsService,
+    public route: ActivatedRoute,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
+    this.authStatusSubscription = this.authService
+      .getAuthStatusListener()
+      .subscribe({
+        next: (authStatus) => {
+          this.isLoading = false
+        },
+      })
     this.form = new FormGroup({
       title: new FormControl(null, {
         validators: [Validators.required, Validators.min(3)],
@@ -78,7 +92,6 @@ export class JobsCreateComponent implements OnInit {
         this.form.value.image
       )
     } else {
-      console.log('this should not be called yet')
       this.jobsService.updateJob(
         this.id,
         this.form.value.title,
@@ -99,5 +112,9 @@ export class JobsCreateComponent implements OnInit {
       this.imagePreview = reader.result as string
     }
     reader.readAsDataURL(file)
+  }
+
+  ngOnDestroy(): void {
+    this.authStatusSubscription.unsubscribe()
   }
 }

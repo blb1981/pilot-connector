@@ -10,6 +10,7 @@
     <mat-card-content>
       <p>{{ job.content }}</p>
       <img class="thumbnail" [src]="job.imagePath" [alt]="job.title" />
+
       <mat-card-actions *ngIf="isAuthenticated && userId === job.user">
         <a mat-raised-button [routerLink]="['edit', job.id]">Edit</a>
         <button mat-raised-button color="warn" (click)="onDelete(job.id)">
