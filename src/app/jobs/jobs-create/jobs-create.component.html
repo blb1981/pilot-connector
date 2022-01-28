@@ -33,12 +33,13 @@
       </mat-form-field>
 
       <mat-card-actions>
-        <button mat-raised-button (click)="filePicker.click()">
+        <!-- TODO: Form tries to submit when button is clicked, only while editing job, not creating -->
+        <!-- <button mat-raised-button (click)="filePicker.click()">
           Choose Image
-        </button>
+        </button> -->
         <input
+          mat-raised-button
           #filePicker
-          hidden="true"
           type="file"
           onclick="this.value=null"
           (change)="onImagePicked($event)"
