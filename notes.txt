@@ -1,0 +1,7 @@
+Workflow
+1. Model
+2. Controller/routes
+3. Middleware (if necessary)
+4. Component
+5. Service (if necessary)
+6. Styling
