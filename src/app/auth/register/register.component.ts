@@ -6,7 +6,7 @@ import { AuthService } from '../auth.service'
 
 @Component({
   templateUrl: './register.component.html',
-  styleUrls: ['../auth-styles.css'],
+  styleUrls: ['../auth-styles.scss'],
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   isLoading = false

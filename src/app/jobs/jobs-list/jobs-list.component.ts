@@ -9,7 +9,7 @@ import { JobsService } from '../jobs.service'
 @Component({
   selector: 'app-jobs-list',
   templateUrl: './jobs-list.component.html',
-  styleUrls: ['./jobs-list.component.css'],
+  styleUrls: ['./jobs-list.component.scss'],
 })
 export class JobsListComponent implements OnInit, OnDestroy {
   jobs: Job[] = []

@@ -6,7 +6,7 @@ import { AuthService } from '../auth.service'
 
 @Component({
   templateUrl: './login.component.html',
-  styleUrls: ['../auth-styles.css'],
+  styleUrls: ['../auth-styles.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
   isLoading = false

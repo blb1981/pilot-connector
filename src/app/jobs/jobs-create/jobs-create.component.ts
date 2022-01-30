@@ -11,7 +11,7 @@ import { mimeType } from './mime-type.validator'
 @Component({
   selector: 'app-jobs-create',
   templateUrl: './jobs-create.component.html',
-  styleUrls: ['./jobs-create.component.css'],
+  styleUrls: ['./jobs-create.component.scss'],
 })
 export class JobsCreateComponent implements OnInit, OnDestroy {
   enteredTitle = ''

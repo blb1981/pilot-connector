@@ -5,3 +5,5 @@ Workflow
 4. Component
 5. Service (if necessary)
 6. Styling
+
+Primary brand color: 2a7096
