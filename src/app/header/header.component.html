@@ -7,7 +7,6 @@
   <ul class="right-menu">
     <li>
       <a
-        mat-button
         routerLink="/"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
@@ -15,20 +14,18 @@
       >
     </li>
     <li *ngIf="isAuthenticated">
-      <a mat-button routerLink="/create" routerLinkActive="active">New Job</a>
+      <a routerLink="/create" routerLinkActive="active">New Job</a>
     </li>
     <li *ngIf="!isAuthenticated">
-      <a mat-button routerLink="/login" routerLinkActive="active">Login</a>
+      <a routerLink="/login" routerLinkActive="active">Login</a>
     </li>
     <li *ngIf="!isAuthenticated">
-      <a mat-button routerLink="/register" routerLinkActive="active"
-        >Register</a
-      >
+      <a routerLink="/register" routerLinkActive="active">Register</a>
     </li>
     <li *ngIf="isAuthenticated">
-      <button mat-button (click)="onLogout()" routerLinkActive="active">
-        Logout
-      </button>
+      <a (click)="onLogout()" routerLinkActive="active" class="logout-link"
+        >Logout</a
+      >
     </li>
   </ul>
 </mat-toolbar>

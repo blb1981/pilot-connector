@@ -3,7 +3,6 @@ ul {
 }
 li {
   list-style-type: none;
-  /* margin-right: 1rem; */
 }
 a {
   color: white;
@@ -11,9 +10,7 @@ a {
 }
 
 .active {
-  font-size: 14px;
-  /* text-decoration: underline; */
-  font-weight: bold;
+  border-bottom: 1px solid white;
 }
 .toolbar {
   display: flex;
@@ -22,9 +19,17 @@ a {
   flex: 1 1;
 }
 .right-menu {
-  display: flex;
-}
-.right-menu a {
   font-size: 1rem;
-  font-weight: 400;
+  display: flex;
+  width: 20rem;
+  justify-content: end;
+}
+.right-menu li {
+  margin-left: 2rem;
+}
+.logout-link {
+  cursor: pointer;
+}
+.right-menu a:hover {
+  border-bottom: 1px solid white;
 }
