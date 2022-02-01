@@ -1,7 +1,11 @@
 export interface Job {
   id: string
   title: string
-  content: string
-  imagePath: string
+  summary: string
+  compensation: string
+  airports: string
+  // imagePath: string
+  startDate: string
+  endDate: string
   user: string
 }

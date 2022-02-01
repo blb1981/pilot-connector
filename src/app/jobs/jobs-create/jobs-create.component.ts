@@ -14,12 +14,16 @@ import { mimeType } from './mime-type.validator'
   styleUrls: ['./jobs-create.component.scss'],
 })
 export class JobsCreateComponent implements OnInit, OnDestroy {
-  enteredTitle = ''
-  enteredContent = ''
+  // enteredTitle = ''
+  // enteredSummary = ''
+  // enteredCompensation = ''
+  // enteredAirports = ''
+  // enteredStartDate = ''
+  // enteredEndDate = ''
   job: Job
   isLoading: boolean = false
   form: FormGroup
-  imagePreview: string
+  // imagePreview: string
   mode = 'create'
   private id: string
   private authStatusSubscription: Subscription
@@ -42,13 +46,16 @@ export class JobsCreateComponent implements OnInit, OnDestroy {
       title: new FormControl(null, {
         validators: [Validators.required, Validators.min(3)],
       }),
-      content: new FormControl(null, {
+      summary: new FormControl(null, {
         validators: [Validators.required],
       }),
-      image: new FormControl(null, {
+      compensation: new FormControl(null, {
         validators: [Validators.required],
-        asyncValidators: [mimeType],
       }),
+      airports: new FormControl(null),
+      startDate: new FormControl(null),
+      endDate: new FormControl(null),
+      // image: new FormControl(null),
     })
 
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -61,16 +68,24 @@ export class JobsCreateComponent implements OnInit, OnDestroy {
           this.job = {
             id: response.data.job._id,
             title: response.data.job.title,
-            content: response.data.job.content,
-            imagePath: response.data.job.imagePath,
+            summary: response.data.job.summary,
+            compensation: response.data.job.compensation,
+            airports: response.data.job.airports,
+            // imagePath: response.data.job.imagePath,
+            startDate: response.data.job.startDate,
+            endDate: response.data.job.endDate,
             user: response.data.job.user,
           }
           this.form.setValue({
             title: this.job.title,
-            content: this.job.content,
-            image: this.job.imagePath,
+            summary: this.job.summary,
+            compensation: this.job.compensation,
+            airports: this.job.airports,
+            // imagePath: this.job.imagePath,
+            startDate: this.job.startDate,
+            endDate: this.job.endDate,
           })
-          this.imagePreview = response.data.job.imagePath
+          // this.imagePreview = response.data.job.imagePath
         })
       } else {
         this.mode = 'create'
@@ -80,7 +95,7 @@ export class JobsCreateComponent implements OnInit, OnDestroy {
   }
 
   onSaveJob() {
-    console.log('this should not be called either')
+    console.log(this.form.value)
     if (this.form.invalid) {
       return
     }
@@ -88,31 +103,37 @@ export class JobsCreateComponent implements OnInit, OnDestroy {
     if (this.mode === 'create') {
       this.jobsService.addJob(
         this.form.value.title,
-        this.form.value.content,
-        this.form.value.image
+        this.form.value.summary,
+        this.form.value.compensation,
+        this.form.value.airports,
+        this.form.value.startDate,
+        this.form.value.endDate
       )
     } else {
       this.jobsService.updateJob(
         this.id,
         this.form.value.title,
-        this.form.value.content,
-        this.form.value.image
+        this.form.value.summary,
+        this.form.value.compensation,
+        this.form.value.airports,
+        this.form.value.startDate,
+        this.form.value.endDate
       )
     }
 
     this.form.reset()
   }
 
-  onImagePicked(event: Event) {
-    const file = (event.target as HTMLInputElement).files[0]
-    this.form.patchValue({ image: file })
-    this.form.get('image').updateValueAndValidity()
-    const reader = new FileReader()
-    reader.onload = () => {
-      this.imagePreview = reader.result as string
-    }
-    reader.readAsDataURL(file)
-  }
+  // onImagePicked(event: Event) {
+  //   const file = (event.target as HTMLInputElement).files[0]
+  //   this.form.patchValue({ image: file })
+  //   this.form.get('image').updateValueAndValidity()
+  //   const reader = new FileReader()
+  //   reader.onload = () => {
+  //     this.imagePreview = reader.result as string
+  //   }
+  //   reader.readAsDataURL(file)
+  // }
 
   ngOnDestroy(): void {
     this.authStatusSubscription.unsubscribe()

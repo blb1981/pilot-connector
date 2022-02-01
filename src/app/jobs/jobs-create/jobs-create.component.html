@@ -6,7 +6,8 @@
   <mat-card-content>
     <form [formGroup]="form" (submit)="onSaveJob()" *ngIf="!isLoading">
       <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Job title</mat-label>
+        <!-- Title -->
+        <mat-label>Job headline</mat-label>
         <input
           matNativeControl
           type="text"
@@ -16,27 +17,64 @@
         />
         <mat-error *ngIf="form.get('title').invalid">error message</mat-error>
       </mat-form-field>
+      <!-- End Title -->
 
+      <!-- Summary -->
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Job description</mat-label>
         <textarea
           matNativeControl
-          name="content"
-          id=""
+          name="summary"
           cols="30"
-          rows="10"
-          placeholder="Job description"
-          formControlName="content"
+          rows="7"
+          placeholder="Job summary"
+          formControlName="summary"
           [disabled]="isLoading"
         ></textarea>
-        <mat-error *ngIf="form.get('content').invalid">error message</mat-error>
+        <mat-error *ngIf="form.get('summary').invalid">error message</mat-error>
       </mat-form-field>
+      <!-- End Summary -->
 
-      <mat-card-actions>
-        <!-- TODO: Form tries to submit when button is clicked, only while editing job, not creating -->
-        <!-- <button mat-raised-button (click)="filePicker.click()">
+      <!-- Compensation -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Compensation</mat-label>
+        <input
+          matNativeControl
+          type="text"
+          name="compensation"
+          placeholder="Job compensation"
+          formControlName="compensation"
+          [disabled]="isLoading"
+        />
+        <mat-error *ngIf="form.get('compensation').invalid"
+          >error message</mat-error
+        >
+      </mat-form-field>
+      <!-- End Compensation -->
+
+      <!-- Airports -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Airports involved</mat-label>
+        <input
+          matNativeControl
+          type="text"
+          name="airports"
+          placeholder="Airports"
+          formControlName="airports"
+          [disabled]="isLoading"
+        />
+        <mat-error *ngIf="form.get('airports').invalid"
+          >error message</mat-error
+        >
+      </mat-form-field>
+      <!-- End Airports -->
+
+      <!-- Image -->
+      <!-- TODO: Form tries to submit when button is clicked, only while editing job, not creating -->
+      <!-- <mat-card-actions>
+        <button mat-raised-button (click)="filePicker.click()">
           Choose Image
-        </button> -->
+        </button>
         <input
           mat-raised-button
           #filePicker
@@ -44,14 +82,53 @@
           onclick="this.value=null"
           (change)="onImagePicked($event)"
         />
-      </mat-card-actions>
+      </mat-card-actions> -->
+      <!-- End Image -->
 
-      <mat-card-actions
+      <!-- Image Preview -->
+      <!-- <mat-card-actions
         class="image-preview"
         *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid"
       >
         <img [src]="imagePreview" [alt]="form.value.title" />
-      </mat-card-actions>
+      </mat-card-actions> -->
+      <!-- End Image Preview -->
+
+      <!-- Start date -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Job start date</mat-label>
+        <input
+          matNativeControl
+          name="startDate"
+          [matDatepicker]="startDate"
+          [disabled]="isLoading"
+          formControlName="startDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="startDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #startDate></mat-datepicker>
+      </mat-form-field>
+      <!-- End Start date -->
+
+      <!-- End  date -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Job end date</mat-label>
+        <input
+          matNativeControl
+          name="endDate"
+          [matDatepicker]="endDate"
+          [disabled]="isLoading"
+          formControlName="endDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="endDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #endDate></mat-datepicker>
+      </mat-form-field>
+      <!-- End End date -->
 
       <mat-card-actions>
         <button

@@ -8,8 +8,8 @@
       <mat-card-title>{{ job.title }}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <p>{{ job.content }}</p>
-      <img class="thumbnail" [src]="job.imagePath" [alt]="job.title" />
+      <p>{{ job.summary }}</p>
+      <!-- <img class="thumbnail" [src]="job.imagePath" [alt]="job.title" /> -->
 
       <mat-card-actions *ngIf="isAuthenticated && userId === job.user">
         <a mat-raised-button [routerLink]="['edit', job.id]">Edit</a>

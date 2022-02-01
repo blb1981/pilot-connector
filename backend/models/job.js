@@ -5,13 +5,25 @@ const jobSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  content: {
+  summary: {
     type: String,
     required: true,
   },
-  imagePath: {
+  compensation: {
     type: String,
     required: true,
+  },
+  airports: {
+    type: String,
+  },
+  imagePath: {
+    type: String,
+  },
+  startDate: {
+    type: Date,
+  },
+  endDate: {
+    type: Date,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,

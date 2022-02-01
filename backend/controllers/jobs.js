@@ -1,11 +1,16 @@
 const Job = require('../models/job')
 
 exports.createJob = (req, res) => {
+  console.log(req.body)
   const url = req.protocol + '://' + req.get('host')
   const job = new Job({
     title: req.body.title,
-    content: req.body.content,
-    imagePath: url + '/images/' + req.file.filename,
+    summary: req.body.summary,
+    compensation: req.body.compensation,
+    airports: req.body.airports,
+    // imagePath: url + '/images/' + req.file.filename,
+    startDate: new Date(req.body.startDate),
+    endDate: new Date(req.body.endDate),
     user: req.userData.id,
   })
   job
@@ -19,6 +24,8 @@ exports.createJob = (req, res) => {
       })
     })
     .catch((error) => {
+      console.log('here in the controller??')
+      console.log(error)
       res.status(500).json({
         status: 'error',
         message: 'Server error',
