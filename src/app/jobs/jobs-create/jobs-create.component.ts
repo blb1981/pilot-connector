@@ -101,6 +101,7 @@ export class JobsCreateComponent implements OnInit, OnDestroy {
     }
     this.isLoading = true
     if (this.mode === 'create') {
+      console.log('in create mode or')
       this.jobsService.addJob(
         this.form.value.title,
         this.form.value.summary,
@@ -110,6 +111,7 @@ export class JobsCreateComponent implements OnInit, OnDestroy {
         this.form.value.endDate
       )
     } else {
+      console.log('in edit mode')
       this.jobsService.updateJob(
         this.id,
         this.form.value.title,

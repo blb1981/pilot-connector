@@ -102,6 +102,7 @@ export class JobsService {
     startDate: string,
     endDate: string
   ) {
+    console.log('make it to serviec?')
     let postData: Job | FormData
     // if (typeof image === 'object') {
     //   postData = new FormData()
@@ -137,6 +138,8 @@ export class JobsService {
       endDate,
       user: null,
     }
+
+    console.log({ postData })
 
     this.http.put(`http://localhost:3000/api/jobs/${id}`, postData).subscribe({
       next: (response) => {

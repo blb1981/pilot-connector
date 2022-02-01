@@ -92,19 +92,31 @@ exports.getJob = (req, res) => {
 }
 
 exports.updateJob = (req, res) => {
-  let imagePath = req.body.imagePath
-  if (req.file) {
-    const url = req.protocol + '://' + req.get('host')
-    imagePath = url + '/images/' + req.file.filename
-  }
-  const job = {
-    _id: req.body.id,
+  // let imagePath = req.body.imagePath
+  // if (req.file) {
+  //   const url = req.protocol + '://' + req.get('host')
+  //   imagePath = url + '/images/' + req.file.filename
+  // }
+  // const job = {
+  //   _id: req.body.id,
+  //   title: req.body.title,
+  //   content: req.body.content,
+  //   imagePath,
+  //   user: req.userData.id,
+  // }
+
+  // Renamed to job2 updates to form
+  const job2 = {
     title: req.body.title,
-    content: req.body.content,
-    imagePath,
+    summary: req.body.summary,
+    compensation: req.body.compensation,
+    airports: req.body.airports,
+    // imagePath: url + '/images/' + req.file.filename,
+    startDate: new Date(req.body.startDate),
+    endDate: new Date(req.body.endDate),
     user: req.userData.id,
   }
-  Job.updateOne({ _id: req.params.id, user: req.userData.id }, job)
+  Job.updateOne({ _id: req.params.id, user: req.userData.id }, job2)
     .then((response) => {
       if (response.modifiedCount > 0) {
         res.status(200).json({
