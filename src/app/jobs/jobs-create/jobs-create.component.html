@@ -6,18 +6,20 @@
   <mat-card-content>
     <form [formGroup]="form" (submit)="onSaveJob()" *ngIf="!isLoading">
       <mat-form-field appearance="outline" class="form-field">
-        <!-- Title -->
+        <!-- Headline -->
         <mat-label>Job headline</mat-label>
         <input
           matNativeControl
           type="text"
-          name="title"
-          formControlName="title"
+          name="headline"
+          formControlName="headline"
           [disabled]="isLoading"
         />
-        <mat-error *ngIf="form.get('title').invalid">error message</mat-error>
+        <mat-error *ngIf="form.get('headline').invalid"
+          >error message</mat-error
+        >
       </mat-form-field>
-      <!-- End Title -->
+      <!-- End Headline -->
 
       <!-- Summary -->
       <mat-form-field appearance="outline" class="form-field">

@@ -29,7 +29,7 @@ export class JobsService {
             jobs: response.data.jobs.map((document) => {
               return {
                 id: document._id,
-                title: document.title,
+                headline: document.headline,
                 summary: document.summary,
                 compensation: document.compensation,
                 airports: document.airports,
@@ -66,7 +66,7 @@ export class JobsService {
   }
 
   addJob(
-    title: string,
+    headline: string,
     summary: string,
     compensation: string,
     airports: string,
@@ -74,16 +74,14 @@ export class JobsService {
     startDate: string,
     endDate: string
   ) {
-    console.log('where are we? in addjob method, jobs.service')
     const postData = new FormData()
-    postData.append('title', title)
+    postData.append('headline', headline)
     postData.append('summary', summary)
     postData.append('compensation', compensation)
     postData.append('airports', airports)
     // postData.append('image', image, title)
     postData.append('startDate', startDate)
     postData.append('endDate', endDate)
-    console.log('postData...does it look right???', postData)
 
     this.http
       .post('http://localhost:3000/api/jobs', postData)
@@ -94,7 +92,7 @@ export class JobsService {
 
   updateJob(
     id: string,
-    title: string,
+    headline: string,
     summary: string,
     compensation: string,
     airports: string,
@@ -102,7 +100,6 @@ export class JobsService {
     startDate: string,
     endDate: string
   ) {
-    console.log('make it to serviec?')
     let postData: Job | FormData
     // if (typeof image === 'object') {
     //   postData = new FormData()
@@ -129,7 +126,7 @@ export class JobsService {
     //   }
     postData = {
       id,
-      title,
+      headline,
       summary,
       compensation,
       airports,
@@ -138,8 +135,6 @@ export class JobsService {
       endDate,
       user: null,
     }
-
-    console.log({ postData })
 
     this.http.put(`http://localhost:3000/api/jobs/${id}`, postData).subscribe({
       next: (response) => {

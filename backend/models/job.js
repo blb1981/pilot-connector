@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const jobSchema = mongoose.Schema({
-  title: {
+  headline: {
     type: String,
     required: true,
   },

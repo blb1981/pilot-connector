@@ -43,7 +43,7 @@ export class JobsCreateComponent implements OnInit, OnDestroy {
         },
       })
     this.form = new FormGroup({
-      title: new FormControl(null, {
+      headline: new FormControl(null, {
         validators: [Validators.required, Validators.min(3)],
       }),
       summary: new FormControl(null, {
@@ -67,7 +67,7 @@ export class JobsCreateComponent implements OnInit, OnDestroy {
           this.isLoading = false
           this.job = {
             id: response.data.job._id,
-            title: response.data.job.title,
+            headline: response.data.job.headline,
             summary: response.data.job.summary,
             compensation: response.data.job.compensation,
             airports: response.data.job.airports,
@@ -77,7 +77,7 @@ export class JobsCreateComponent implements OnInit, OnDestroy {
             user: response.data.job.user,
           }
           this.form.setValue({
-            title: this.job.title,
+            headline: this.job.headline,
             summary: this.job.summary,
             compensation: this.job.compensation,
             airports: this.job.airports,
@@ -95,15 +95,13 @@ export class JobsCreateComponent implements OnInit, OnDestroy {
   }
 
   onSaveJob() {
-    console.log(this.form.value)
     if (this.form.invalid) {
       return
     }
     this.isLoading = true
     if (this.mode === 'create') {
-      console.log('in create mode or')
       this.jobsService.addJob(
-        this.form.value.title,
+        this.form.value.headline,
         this.form.value.summary,
         this.form.value.compensation,
         this.form.value.airports,
@@ -111,10 +109,9 @@ export class JobsCreateComponent implements OnInit, OnDestroy {
         this.form.value.endDate
       )
     } else {
-      console.log('in edit mode')
       this.jobsService.updateJob(
         this.id,
-        this.form.value.title,
+        this.form.value.headline,
         this.form.value.summary,
         this.form.value.compensation,
         this.form.value.airports,

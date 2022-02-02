@@ -1,6 +1,6 @@
 export interface Job {
   id: string
-  title: string
+  headline: string
   summary: string
   compensation: string
   airports: string

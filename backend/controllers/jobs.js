@@ -4,7 +4,7 @@ exports.createJob = (req, res) => {
   console.log(req.body)
   const url = req.protocol + '://' + req.get('host')
   const job = new Job({
-    title: req.body.title,
+    headline: req.body.headline,
     summary: req.body.summary,
     compensation: req.body.compensation,
     airports: req.body.airports,
@@ -107,7 +107,7 @@ exports.updateJob = (req, res) => {
 
   // Renamed to job2 updates to form
   const job2 = {
-    title: req.body.title,
+    headline: req.body.headline,
     summary: req.body.summary,
     compensation: req.body.compensation,
     airports: req.body.airports,

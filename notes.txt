@@ -3,8 +3,8 @@ Workflow
 2. Controller/routes
 3. Middleware (if necessary)
 4. TypeScript interface model
-5. Component
-6. Service (if necessary)
+5. Service (if necessary)
+6. Component
 7. Styling
 
 Primary brand color: 2a7096
