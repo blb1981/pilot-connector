@@ -1,34 +1,28 @@
-const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 const User = require('../models/user')
 
 exports.createUser = (req, res) => {
-  bcrypt.hash(req.body.password, 10).then((hash) => {
-    const user = new User({
-      email: req.body.email,
-      password: hash,
+  const user = new User(req.body)
+  user
+    .save()
+    .then((document) => {
+      res.status(201).json({
+        status: 'success',
+        data: {
+          user: document,
+        },
+      })
     })
-    user
-      .save()
-      .then((document) => {
-        res.status(201).json({
-          status: 'success',
-          data: {
-            user: document,
-          },
-        })
+    .catch((error) => {
+      res.status(400).json({
+        status: 'fail',
+        data: {
+          message: 'Invalid username or password',
+          newErrorMessage: error.errors,
+        },
       })
-      .catch((err) => {
-        res.status(400).json({
-          status: 'fail',
-          data: {
-            message: 'Invalid username or password',
-            error: err,
-          },
-        })
-      })
-  })
+    })
 }
 
 exports.login = (req, res) => {
