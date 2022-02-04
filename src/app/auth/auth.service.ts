@@ -31,13 +31,12 @@ export class AuthService {
     return this.authStatusListener.asObservable()
   }
 
-  createUser(email: string, password: string) {
-    const authData: AuthData = { email, password }
-
+  createUser(authData: AuthData) {
     this.http
       .post('http://localhost:3000/api/users/register', authData)
       .subscribe({
         complete: () => {
+          alert('Register successful')
           this.router.navigate(['/login'])
         },
         error: () => {
@@ -47,13 +46,11 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    const authData: AuthData = { email, password }
-
     this.http
       .post<{
         status: string
         data: { token: string; expiresIn: number; userId: string }
-      }>('http://localhost:3000/api/users/login', authData)
+      }>('http://localhost:3000/api/users/login', { email, password })
       .subscribe({
         next: (response) => {
           const token = response.data.token

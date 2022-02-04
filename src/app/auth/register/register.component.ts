@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { NgForm } from '@angular/forms'
 import { Subscription } from 'rxjs'
+import { AuthData } from '../auth-data.model'
 
 import { AuthService } from '../auth.service'
 
@@ -26,8 +27,17 @@ export class RegisterComponent implements OnInit, OnDestroy {
     if (form.invalid) {
       return
     }
+
     this.isLoading = true
-    this.authService.createUser(form.value.email, form.value.password)
+    const authData: AuthData = {
+      companyName: form.value.companyName,
+      name: form.value.name,
+      email: form.value.email,
+      phone: form.value.phone,
+      password: form.value.password,
+      passwordConfirm: form.value.passwordConfirm,
+    }
+    this.authService.createUser(authData)
   }
 
   ngOnDestroy(): void {

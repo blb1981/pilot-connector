@@ -1,11 +1,45 @@
 <mat-card class="card">
   <mat-card-header class="card-header">
-    <mat-card-title>Register</mat-card-title>
+    <mat-card-title>Register Your Company</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
     <!-- <h3 *ngIf="isLoading">Loading</h3> -->
     <form (submit)="onSubmit(registerForm)" #registerForm="ngForm">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Company name</mat-label>
+        <input
+          matNativeControl
+          type="text"
+          name="companyName"
+          ngModel
+          placeholder="Company name"
+          #companyNameInput="ngModel"
+          required
+          [disabled]="isLoading"
+        />
+
+        <mat-error *ngIf="companyNameInput.invalid"
+          >Company name is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Company contact name</mat-label>
+        <input
+          matNativeControl
+          type="text"
+          name="name"
+          ngModel
+          placeholder="Company contact name"
+          #nameInput="ngModel"
+          required
+          [disabled]="isLoading"
+        />
+
+        <mat-error *ngIf="nameInput.invalid"
+          >Company contact name is required</mat-error
+        >
+      </mat-form-field>
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Email address</mat-label>
         <input
@@ -25,6 +59,23 @@
         >
       </mat-form-field>
       <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Phone number</mat-label>
+        <input
+          matNativeControl
+          type="tel"
+          name="phone"
+          ngModel
+          placeholder="555-555-5555"
+          #phoneInput="ngModel"
+          [disabled]="isLoading"
+          maxlength="15"
+        />
+
+        <mat-error *ngIf="phoneInput.invalid"
+          >Please enter a valid phone number with dashes</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="form-field">
         <input
           matNativeControl
           type="password"
@@ -33,11 +84,27 @@
           placeholder="Password"
           #passwordInput="ngModel"
           required
-          minlength="6"
+          minlength="8"
           [disabled]="isLoading"
         />
         <mat-error *ngIf="passwordInput.invalid"
           >Please enter a valid password</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="form-field">
+        <input
+          matNativeControl
+          type="password"
+          name="passwordConfirm"
+          ngModel
+          placeholder="Confirm password"
+          #passwordConfirmInput="ngModel"
+          required
+          minlength="8"
+          [disabled]="isLoading"
+        />
+        <mat-error *ngIf="passwordConfirmInput.invalid"
+          >Please confirm your password</mat-error
         >
       </mat-form-field>
       <mat-card-actions>
