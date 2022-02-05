@@ -42,6 +42,7 @@ const userSchema = new mongoose.Schema(
         message: 'Passwords do not match',
       },
     },
+    passwordChangedAt: Date,
   },
   {
     timestamps: true,
@@ -64,6 +65,20 @@ userSchema.methods.correctPassword = async function (
   userPassword
 ) {
   return await bcrypt.compare(candidatePassword, userPassword)
+}
+
+// Verify password hasn't been changed after token issue date
+userSchema.methods.passwordChangedAfter = function (JWTTimestamp) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10
+    )
+
+    // True means password has been altered since JWT issue date
+    return JWTTimestamp < changedTimestamp
+  }
+  return false
 }
 
 userSchema.plugin(uniqueValidator)

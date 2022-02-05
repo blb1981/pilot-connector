@@ -30,7 +30,6 @@ const checkAuth = async (req, res, next) => {
 
     // 3) Make sure user still exists
     const user = await User.findById(decodedToken.id)
-    console.log({ user })
     if (!user) {
       console.log('user not found')
       return res.status(401).json({
@@ -42,6 +41,15 @@ const checkAuth = async (req, res, next) => {
     }
 
     // 4) Make sure user's password is still valid
+    if (user.passwordChangedAfter(decodedToken.iat)) {
+      console.log('JWT expired')
+      return res.status(401).json({
+        status: 'fail',
+        data: {
+          message: 'Authentication failed',
+        },
+      })
+    }
     next()
   } catch (err) {
     res.status(500).json({

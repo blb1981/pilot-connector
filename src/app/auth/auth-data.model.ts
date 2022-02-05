@@ -5,4 +5,5 @@ export interface AuthData {
   phone?: string
   password: string
   passwordConfirm: string
+  passwordChangedAt?: string
 }

@@ -15,6 +15,7 @@ exports.createUser = (req, res) => {
     phone: req.body.phone,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
+    passwordChangedAt: '2020-09-30',
   })
 
   user
