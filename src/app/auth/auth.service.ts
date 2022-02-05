@@ -49,15 +49,17 @@ export class AuthService {
     this.http
       .post<{
         status: string
-        data: { token: string; expiresIn: number; userId: string }
+        data: { token: string; expiresIn: number; userId: string; name: string }
       }>('http://localhost:3000/api/users/login', { email, password })
       .subscribe({
         next: (response) => {
+          console.log(response.data.expiresIn, 'seconds')
           const token = response.data.token
           this.token = token
           if (token) {
             const expiresInDuration = response.data.expiresIn
-            this.setAuthTimer(expiresInDuration)
+            // this.setAuthTimer(expiresInDuration)
+            // Useful for short logouts,
             this.isAuthenticated = true
             this.userId = response.data.userId
             this.authStatusListener.next(true)
@@ -86,7 +88,7 @@ export class AuthService {
       this.token = authInformation.token
       this.isAuthenticated = true
       this.userId = authInformation.userId
-      this.setAuthTimer(expiresIn / 1000)
+      // this.setAuthTimer(expiresIn / 1000)
       this.authStatusListener.next(true)
     }
   }
@@ -128,6 +130,7 @@ export class AuthService {
   }
 
   private setAuthTimer(duration: number) {
+    console.log('are we in setAuthTimer???')
     this.tokenTimer = setTimeout(() => {
       this.logout()
     }, duration * 1000)

@@ -72,6 +72,7 @@ exports.login = async (req, res) => {
         token,
         expiresIn: parseInt(process.env.JWT_EXPIRES_IN_SECONDS),
         userId: user._id,
+        name: user.name,
       },
     })
   } catch (error) {
