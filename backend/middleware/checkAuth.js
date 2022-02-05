@@ -19,6 +19,7 @@ const checkAuth = (req, res, next) => {
       })
     }
 
+    // 2) Verify token
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
     req.userData = {
       email: decodedToken.email,

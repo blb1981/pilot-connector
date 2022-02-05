@@ -63,7 +63,6 @@ userSchema.methods.correctPassword = async function (
   candidatePassword,
   userPassword
 ) {
-  console.log('in model now')
   return await bcrypt.compare(candidatePassword, userPassword)
 }
 

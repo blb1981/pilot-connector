@@ -1,7 +1,6 @@
 const Job = require('../models/job')
 
 exports.createJob = (req, res) => {
-  console.log(req.body)
   const url = req.protocol + '://' + req.get('host')
   const job = new Job({
     headline: req.body.headline,
@@ -24,8 +23,6 @@ exports.createJob = (req, res) => {
       })
     })
     .catch((error) => {
-      console.log('here in the controller??')
-      console.log(error)
       res.status(500).json({
         status: 'error',
         message: 'Server error',
