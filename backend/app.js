@@ -4,7 +4,7 @@ const app = express()
 const mongoose = require('mongoose')
 
 const jobsRoutes = require('./routes/jobs')
-const userRoutes = require('./routes/users')
+const authRoutes = require('./routes/auth')
 
 // Connect to DB
 mongoose
@@ -39,6 +39,6 @@ app.use((req, res, next) => {
 })
 
 app.use('/api/jobs', jobsRoutes)
-app.use('/api/users', userRoutes)
+app.use('/api/auth', authRoutes)
 
 module.exports = app

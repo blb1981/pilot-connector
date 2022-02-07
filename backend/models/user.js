@@ -25,6 +25,11 @@ const userSchema = new mongoose.Schema(
       required: false,
       maxlength: [15, 'Max phone number length if 15 digits'],
     },
+    role: {
+      type: String,
+      enum: ['user', 'admin'], // This will be specific to the application's needs
+      default: 'user',
+    },
     password: {
       type: String,
       required: [true, 'Please provide a password'],

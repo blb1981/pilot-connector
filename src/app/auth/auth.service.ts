@@ -33,7 +33,7 @@ export class AuthService {
 
   createUser(authData: AuthData) {
     this.http
-      .post('http://localhost:3000/api/users/register', authData)
+      .post('http://localhost:3000/api/auth/register', authData)
       .subscribe({
         complete: () => {
           alert('Register successful')
@@ -50,7 +50,7 @@ export class AuthService {
       .post<{
         status: string
         data: { token: string; expiresIn: number; userId: string; name: string }
-      }>('http://localhost:3000/api/users/login', { email, password })
+      }>('http://localhost:3000/api/auth/login', { email, password })
       .subscribe({
         next: (response) => {
           console.log(response.data.expiresIn, 'seconds')
