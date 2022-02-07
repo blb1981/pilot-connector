@@ -16,7 +16,7 @@ export class JobsListComponent implements OnInit, OnDestroy {
   isLoading = false
   private jobsSub: Subscription
   totalJobs = 0
-  jobsPerPage = 5
+  jobsPerPage = 2
   currentPage = 1
   // TODO: Pagination: when on page 2, you can't return to page 1
   pageSizeOptions = [1, 2, 5, 10, 25, 50, 100] // TODO: Remove 1, 2 for production

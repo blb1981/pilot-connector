@@ -1,9 +1,9 @@
 <h3>Jobs List</h3>
 <h3 *ngIf="isLoading">Loading</h3>
-<ul *ngIf="!isLoading">
+<ul *ngIf="!isLoading" class="jobs-list-container">
   <p *ngIf="jobs.length === 0">No jobs listed, check back later.</p>
 
-  <mat-card *ngFor="let job of jobs" class="jobs-list-container">
+  <mat-card *ngFor="let job of jobs" class="job-card">
     <mat-card-header>
       <mat-card-title>{{ job.headline }}</mat-card-title>
     </mat-card-header>
@@ -11,11 +11,16 @@
       <p>{{ job.summary }}</p>
       <!-- <img class="thumbnail" [src]="job.imagePath" [alt]="job.title" /> -->
 
-      <mat-card-actions *ngIf="isAuthenticated && userId === job.user">
-        <a mat-raised-button [routerLink]="['edit', job.id]">Edit</a>
-        <button mat-raised-button color="warn" (click)="onDelete(job.id)">
-          Delete
-        </button>
+      <mat-card-actions class="job-buttons">
+        <div *ngIf="isAuthenticated && userId === job.user">
+          <a mat-raised-button [routerLink]="['edit', job.id]">Edit</a>
+          <button mat-raised-button color="warn" (click)="onDelete(job.id)">
+            Delete
+          </button>
+        </div>
+        <div *ngIf="!isAuthenticated">
+          <button mat-raised-button color="accent">Apply for this job</button>
+        </div>
       </mat-card-actions>
     </mat-card-content>
   </mat-card>
