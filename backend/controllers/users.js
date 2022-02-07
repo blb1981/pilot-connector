@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 const { signToken } = require('../utils/signToken')
 
-//TODO: Refactor routes file to be DRY
 //TODO: Write catchAsync function for async/await syntax
 //TODO: AppError class and implement
 
