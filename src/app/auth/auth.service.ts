@@ -36,7 +36,6 @@ export class AuthService {
       .post('http://localhost:3000/api/auth/register', authData)
       .subscribe({
         complete: () => {
-          alert('Register successful')
           this.router.navigate(['/login'])
         },
         error: () => {
