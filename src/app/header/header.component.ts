@@ -10,7 +10,7 @@ import { AuthService } from '../auth/auth.service'
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   title = 'Pilot Connector'
-  summary = 'Free job postings for pilots'
+  summary = 'Classified Job Board for Pilots'
   private authStatusSubscription: Subscription
   isAuthenticated = false
 
