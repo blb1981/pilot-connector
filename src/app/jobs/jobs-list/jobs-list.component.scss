@@ -5,6 +5,10 @@
 .jobs-list-container {
   max-width: 30rem;
   margin: 0 auto;
+  list-style: none;
+}
+.jobs-list-container li {
+  margin: 0;
 }
 .job-buttons {
   display: flex;
@@ -12,4 +16,8 @@
 }
 .job-card {
   margin-bottom: 1rem;
+}
+.message {
+  display: flex;
+  justify-content: center;
 }

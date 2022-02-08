@@ -1,7 +1,10 @@
-<h3>Jobs List</h3>
 <h3 *ngIf="isLoading">Loading</h3>
-<ul *ngIf="!isLoading" class="jobs-list-container">
-  <p *ngIf="jobs.length === 0">No jobs listed, check back later.</p>
+<div *ngIf="!isLoading" class="jobs-list-container">
+  <mat-card *ngIf="jobs.length === 0" class="message">
+    <mat-card-header class="message"
+      >No jobs listed, check back later.</mat-card-header
+    >
+  </mat-card>
 
   <mat-card *ngFor="let job of jobs" class="job-card">
     <mat-card-header>
@@ -32,4 +35,4 @@
     [pageSizeOptions]="pageSizeOptions"
     (page)="onPageChanged($event)"
   ></mat-paginator>
-</ul>
+</div>
