@@ -7,9 +7,15 @@
   </mat-card>
 
   <mat-card *ngFor="let job of jobs" class="job-card">
-    <mat-card-header>
-      <mat-card-title>{{ job.headline }}</mat-card-title>
-    </mat-card-header>
+    <mat-card-title class="job-headline">
+      <h2>
+        {{ job.headline }}
+      </h2>
+    </mat-card-title>
+    <mat-card-subtitle class="job-subtitle">
+      <span>Compensation: {{ job.compensation }}</span>
+      <span>Start date: {{ job.startDate | date }}</span>
+    </mat-card-subtitle>
     <mat-card-content>
       <p>{{ job.summary }}</p>
       <!-- <img class="thumbnail" [src]="job.imagePath" [alt]="job.title" /> -->

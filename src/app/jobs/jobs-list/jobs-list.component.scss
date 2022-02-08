@@ -3,7 +3,7 @@
   width: 100%;
 }
 .jobs-list-container {
-  max-width: 30rem;
+  max-width: 35rem;
   margin: 0 auto;
   list-style: none;
 }
@@ -12,7 +12,7 @@
 }
 .job-buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 .job-card {
   margin-bottom: 1rem;
@@ -20,4 +20,8 @@
 .message {
   display: flex;
   justify-content: center;
+}
+.job-subtitle {
+  display: flex;
+  justify-content: space-between;
 }
