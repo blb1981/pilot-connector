@@ -16,10 +16,9 @@ export class JobsListComponent implements OnInit, OnDestroy {
   isLoading = false
   private jobsSub: Subscription
   totalJobs = 0
-  jobsPerPage = 2
+  jobsPerPage = 5
   currentPage = 1
-  // TODO: Pagination: when on page 2, you can't return to page 1
-  pageSizeOptions = [1, 2, 5, 10, 25, 50, 100] // TODO: Remove 1, 2 for production
+  pageSizeOptions = [5, 10, 25, 50]
   private authStatusSubscription: Subscription
   isAuthenticated = false
   userId: string
@@ -50,8 +49,6 @@ export class JobsListComponent implements OnInit, OnDestroy {
   }
 
   onPageChanged(event: PageEvent) {
-    // console.log(event)
-    this.isLoading = true
     this.jobsPerPage = event.pageSize
     this.currentPage = event.pageIndex + 1
     this.jobsService.getJobs(this.jobsPerPage, this.currentPage)

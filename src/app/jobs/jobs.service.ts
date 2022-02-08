@@ -37,6 +37,7 @@ export class JobsService {
                 startDate: document.startDate,
                 endDate: document.endDate,
                 user: document.user,
+                //TODO: Spread operator work better here ??
               }
             }),
             total: response.data.total,
