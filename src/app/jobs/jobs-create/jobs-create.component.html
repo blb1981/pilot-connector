@@ -14,9 +14,11 @@
           name="headline"
           formControlName="headline"
           [disabled]="isLoading"
+          placeholder="3 Day Trip to the Bahamas"
         />
+        <mat-hint> Sell your job with a good headline </mat-hint>
         <mat-error *ngIf="form.get('headline').invalid"
-          >error message</mat-error
+          >Please enter a headline for this job</mat-error
         >
       </mat-form-field>
       <!-- End Headline -->
@@ -29,11 +31,14 @@
           name="summary"
           cols="30"
           rows="7"
-          placeholder="Job summary"
           formControlName="summary"
           [disabled]="isLoading"
+          placeholder="I need someone to fly me to ..."
         ></textarea>
-        <mat-error *ngIf="form.get('summary').invalid">error message</mat-error>
+        <mat-hint>Describe the details of your job</mat-hint>
+        <mat-error *ngIf="form.get('summary').invalid"
+          >Please enter a job description</mat-error
+        >
       </mat-form-field>
       <!-- End Summary -->
 
@@ -44,12 +49,13 @@
           matNativeControl
           type="text"
           name="compensation"
-          placeholder="Job compensation"
           formControlName="compensation"
           [disabled]="isLoading"
+          placeholder="$1250"
         />
+        <mat-hint>How much does this job pay?</mat-hint>
         <mat-error *ngIf="form.get('compensation').invalid"
-          >error message</mat-error
+          >Please enter a valid compensation amount</mat-error
         >
       </mat-form-field>
       <!-- End Compensation -->
@@ -61,18 +67,19 @@
           matNativeControl
           type="text"
           name="airports"
-          placeholder="Airports"
+          placeholder="KIND, MMDW, KORD"
           formControlName="airports"
           [disabled]="isLoading"
         />
-        <mat-error *ngIf="form.get('airports').invalid"
-          >error message</mat-error
+        <mat-hint
+          >Comma separated list of airports for this job. (KIND, MMDW,
+          KORD)</mat-hint
         >
+        <mat-error *ngIf="form.get('airports').invalid"></mat-error>
       </mat-form-field>
       <!-- End Airports -->
 
       <!-- Image -->
-      <!-- TODO: Form tries to submit when button is clicked, only while editing job, not creating -->
       <!-- <mat-card-actions>
         <button mat-raised-button (click)="filePicker.click()">
           Choose Image
@@ -97,7 +104,7 @@
       <!-- End Image Preview -->
 
       <!-- Start date -->
-      <mat-form-field appearance="outline" class="form-field">
+      <!-- <mat-form-field appearance="outline" class="form-field">
         <mat-label>Job start date</mat-label>
         <input
           matNativeControl
@@ -111,11 +118,11 @@
           [for]="startDate"
         ></mat-datepicker-toggle>
         <mat-datepicker #startDate></mat-datepicker>
-      </mat-form-field>
+      </mat-form-field> -->
       <!-- End Start date -->
 
       <!-- End  date -->
-      <mat-form-field appearance="outline" class="form-field">
+      <!-- <mat-form-field appearance="outline" class="form-field">
         <mat-label>Job end date</mat-label>
         <input
           matNativeControl
@@ -129,8 +136,32 @@
           [for]="endDate"
         ></mat-datepicker-toggle>
         <mat-datepicker #endDate></mat-datepicker>
-      </mat-form-field>
+      </mat-form-field> -->
       <!-- End End date -->
+
+      <!-- Start date range picker -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input
+            matStartDate
+            placeholder="Start date"
+            name="startDate"
+            matNativeControl
+            [min]="minDate"
+          />
+          <input
+            matEndDate
+            placeholder="End date"
+            name="endDate"
+            matNativeControl
+            [min]="minDate"
+          />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+      <!-- End date range picker -->
 
       <mat-card-actions>
         <button

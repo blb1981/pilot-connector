@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs'
 import { AuthService } from 'src/app/auth/auth.service'
 import { JobsService } from '../jobs.service'
 import { Job } from '../job.model'
-import { mimeType } from './mime-type.validator'
+// import { mimeType } from './mime-type.validator'
 
 @Component({
   selector: 'app-jobs-create',
@@ -27,12 +27,15 @@ export class JobsCreateComponent implements OnInit, OnDestroy {
   mode = 'create'
   private id: string
   private authStatusSubscription: Subscription
+  minDate: Date
 
   constructor(
     public jobsService: JobsService,
     public route: ActivatedRoute,
     private authService: AuthService
-  ) {}
+  ) {
+    this.minDate = new Date(Date.now())
+  }
 
   ngOnInit() {
     this.authStatusSubscription = this.authService
