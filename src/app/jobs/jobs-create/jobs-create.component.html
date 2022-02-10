@@ -13,8 +13,8 @@
           type="text"
           name="headline"
           formControlName="headline"
-          [disabled]="isLoading"
           placeholder="3 Day Trip to the Bahamas"
+          autofocus
         />
         <mat-hint> Sell your job with a good headline </mat-hint>
         <mat-error *ngIf="form.get('headline').invalid"
@@ -32,7 +32,6 @@
           cols="30"
           rows="7"
           formControlName="summary"
-          [disabled]="isLoading"
           placeholder="I need someone to fly me to ..."
         ></textarea>
         <mat-hint>Describe the details of your job</mat-hint>
@@ -50,7 +49,6 @@
           type="text"
           name="compensation"
           formControlName="compensation"
-          [disabled]="isLoading"
           placeholder="$1250"
         />
         <mat-hint>How much does this job pay?</mat-hint>
@@ -69,7 +67,6 @@
           name="airports"
           placeholder="KIND, MMDW, KORD"
           formControlName="airports"
-          [disabled]="isLoading"
         />
         <mat-hint
           >Comma separated list of airports for this job. (KIND, MMDW,
@@ -103,73 +100,33 @@
       </mat-card-actions> -->
       <!-- End Image Preview -->
 
-      <!-- Start date -->
-      <!-- <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Job start date</mat-label>
-        <input
-          matNativeControl
-          name="startDate"
-          [matDatepicker]="startDate"
-          [disabled]="isLoading"
-          formControlName="startDate"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="startDate"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #startDate></mat-datepicker>
-      </mat-form-field> -->
-      <!-- End Start date -->
-
-      <!-- End  date -->
-      <!-- <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Job end date</mat-label>
-        <input
-          matNativeControl
-          name="endDate"
-          [matDatepicker]="endDate"
-          [disabled]="isLoading"
-          formControlName="endDate"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="endDate"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #endDate></mat-datepicker>
-      </mat-form-field> -->
-      <!-- End End date -->
-
       <!-- Start date range picker -->
       <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Enter a date range</mat-label>
-        <mat-date-range-input [rangePicker]="picker">
+        <mat-date-range-input
+          [formGroup]="form"
+          [rangePicker]="picker"
+          [min]="date"
+        >
           <input
             matStartDate
-            placeholder="Start date"
-            name="startDate"
-            matNativeControl
-            [min]="minDate"
+            placeholder="Job start date"
+            formControlName="startDate"
           />
           <input
             matEndDate
-            placeholder="End date"
-            name="endDate"
-            matNativeControl
-            [min]="minDate"
+            placeholder="Job end date"
+            formControlName="endDate"
           />
         </mat-date-range-input>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-date-range-picker #picker></mat-date-range-picker>
+        <mat-hint>Provide a date range for this job</mat-hint>
+        <mat-error>Please provide a valid date range</mat-error>
       </mat-form-field>
       <!-- End date range picker -->
 
       <mat-card-actions>
-        <button
-          type="submit"
-          mat-raised-button
-          color="accent"
-          [disabled]="isLoading"
-        >
+        <button type="submit" mat-raised-button color="accent">
           {{ mode === 'create' ? 'Add New Job' : '' }}
           {{ mode !== 'create' ? 'Save Changes' : '' }}
           {{ isLoading ? '...loading' : '' }}

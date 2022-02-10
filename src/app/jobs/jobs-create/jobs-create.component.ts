@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs'
 import { AuthService } from 'src/app/auth/auth.service'
 import { JobsService } from '../jobs.service'
 import { Job } from '../job.model'
+import { ValidateFn } from 'mongoose'
 // import { mimeType } from './mime-type.validator'
 
 @Component({
@@ -27,14 +28,18 @@ export class JobsCreateComponent implements OnInit, OnDestroy {
   mode = 'create'
   private id: string
   private authStatusSubscription: Subscription
-  minDate: Date
+  date: Date
+  minDateString: string
 
   constructor(
     public jobsService: JobsService,
     public route: ActivatedRoute,
     private authService: AuthService
   ) {
-    this.minDate = new Date(Date.now())
+    this.date = new Date()
+    this.minDateString = this.date.toISOString().split('T')[0]
+    // this.minDateString = this.date.getTime()
+    console.log(this.minDateString)
   }
 
   ngOnInit() {
@@ -45,19 +50,47 @@ export class JobsCreateComponent implements OnInit, OnDestroy {
           this.isLoading = false
         },
       })
+
     this.form = new FormGroup({
-      headline: new FormControl(null, {
-        validators: [Validators.required, Validators.min(3)],
-      }),
-      summary: new FormControl(null, {
-        validators: [Validators.required],
-      }),
-      compensation: new FormControl(null, {
-        validators: [Validators.required],
-      }),
-      airports: new FormControl(null),
-      startDate: new FormControl(null),
-      endDate: new FormControl(null),
+      headline: new FormControl(
+        { value: null, disabled: this.isLoading },
+        {
+          validators: [Validators.required, Validators.min(3)],
+        }
+      ),
+      summary: new FormControl(
+        { value: null, disabled: this.isLoading },
+        {
+          validators: [Validators.required],
+        }
+      ),
+      compensation: new FormControl(
+        { value: null, disabled: this.isLoading },
+        {
+          validators: [Validators.required],
+        }
+      ),
+      airports: new FormControl({ value: null, disabled: this.isLoading }),
+      startDate: new FormControl(
+        {
+          value: null,
+          disabled: this.isLoading,
+          min: new Date().toISOString().split('T')[0],
+        },
+        {
+          validators: [Validators.required],
+        }
+      ),
+      endDate: new FormControl(
+        {
+          value: null,
+          disabled: this.isLoading,
+          min: new Date().toISOString().split('T')[0],
+        },
+        {
+          validators: [Validators.required],
+        }
+      ),
       // image: new FormControl(null),
     })
 
