@@ -4,18 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
-import { MatButtonModule } from '@angular/material/button'
-import { MatCardModule } from '@angular/material/card'
-import { MatDatepickerModule } from '@angular/material/datepicker'
-import { MatDialogModule } from '@angular/material/dialog'
-import { MatExpansionModule } from '@angular/material/expansion'
-import { MatFormFieldModule } from '@angular/material/form-field'
-import { MatIconModule } from '@angular/material/icon'
-import { MatInputModule } from '@angular/material/input'
-import { MatNativeDateModule } from '@angular/material/core'
-import { MatPaginatorModule } from '@angular/material/paginator'
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
-import { MatToolbarModule } from '@angular/material/toolbar'
+import { AngularMaterialModule } from './angular-material.module'
 
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
@@ -46,18 +35,7 @@ import { RegisterComponent } from './auth/register/register.component'
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatCardModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatDialogModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatProgressSpinnerModule,
-    MatToolbarModule,
+    AngularMaterialModule,
   ],
   providers: [
     {
