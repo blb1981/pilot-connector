@@ -10,6 +10,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
 import { MatNativeDateModule } from '@angular/material/core'
 import { MatPaginatorModule } from '@angular/material/paginator'
@@ -52,6 +53,7 @@ import { RegisterComponent } from './auth/register/register.component'
     MatDialogModule,
     MatExpansionModule,
     MatFormFieldModule,
+    MatIconModule,
     MatInputModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,

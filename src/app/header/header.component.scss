@@ -19,10 +19,7 @@ a {
   flex: 1 1;
 }
 .right-menu {
-  font-size: 1rem;
-  display: flex;
-  width: 20rem;
-  justify-content: end;
+  display: none;
 }
 .right-menu li {
   margin-left: 2rem;
@@ -36,4 +33,13 @@ a {
 .subtitle {
   text-align: center;
   margin-top: 1rem;
+}
+
+@media screen and (min-width: 600px) {
+  .right-menu {
+    display: flex;
+    width: 20rem;
+    justify-content: end;
+    font-size: 1rem;
+  }
 }
