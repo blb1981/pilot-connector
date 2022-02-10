@@ -114,8 +114,9 @@ exports.updateJob = (req, res) => {
     user: req.userData.id,
   }
   Job.updateOne({ _id: req.params.id, user: req.userData.id }, job2)
+
     .then((response) => {
-      if (response.modifiedCount > 0) {
+      if (response.matchedCount > 0) {
         res.status(200).json({
           status: 'success',
           data: {
