@@ -5,6 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { AngularMaterialModule } from './angular-material.module'
+import { AppJobsModule } from './jobs/app-jobs.module'
 
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
@@ -12,8 +13,6 @@ import { AuthInterceptor } from './auth/auth-interceptor'
 import { ErrorComponent } from './error/error.component'
 import { ErrorInterceptor } from './error-interceptor'
 import { HeaderComponent } from './header/header.component'
-import { JobsCreateComponent } from './jobs/jobs-create/jobs-create.component'
-import { JobsListComponent } from './jobs/jobs-list/jobs-list.component'
 import { LoginComponent } from './auth/login/login.component'
 import { RegisterComponent } from './auth/register/register.component'
 
@@ -22,8 +21,6 @@ import { RegisterComponent } from './auth/register/register.component'
     AppComponent,
     ErrorComponent,
     HeaderComponent,
-    JobsCreateComponent,
-    JobsListComponent,
     LoginComponent,
     RegisterComponent,
   ],
@@ -36,6 +33,7 @@ import { RegisterComponent } from './auth/register/register.component'
     HttpClientModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
+    AppJobsModule,
   ],
   providers: [
     {
