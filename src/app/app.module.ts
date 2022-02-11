@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { AngularMaterialModule } from './angular-material.module'
 import { AppJobsModule } from './jobs/jobs.module'
+import { AuthModule } from './auth/auth.module'
 
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
@@ -13,27 +14,20 @@ import { AuthInterceptor } from './auth/auth-interceptor'
 import { ErrorComponent } from './error/error.component'
 import { ErrorInterceptor } from './error-interceptor'
 import { HeaderComponent } from './header/header.component'
-import { LoginComponent } from './auth/login/login.component'
-import { RegisterComponent } from './auth/register/register.component'
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ErrorComponent,
-    HeaderComponent,
-    LoginComponent,
-    RegisterComponent,
-  ],
+  declarations: [AppComponent, ErrorComponent, HeaderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    FormsModule,
+    // FormsModule,
+    // ReactiveFormsModule,
+    // FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
     AppJobsModule,
+    AuthModule,
   ],
   providers: [
     {

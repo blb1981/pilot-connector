@@ -16,6 +16,5 @@ import { JobsListComponent } from './jobs-list/jobs-list.component'
     CommonModule,
     RouterModule,
   ],
-  // exports: [AppJobsModule],
 })
 export class AppJobsModule {}
