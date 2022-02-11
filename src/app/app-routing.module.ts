@@ -4,8 +4,6 @@ import { RouterModule, Routes } from '@angular/router'
 import { AuthGuard } from './auth/auth-guard'
 import { JobsCreateComponent } from './jobs/jobs-create/jobs-create.component'
 import { JobsListComponent } from './jobs/jobs-list/jobs-list.component'
-import { LoginComponent } from './auth/login/login.component'
-import { RegisterComponent } from './auth/register/register.component'
 
 const routes: Routes = [
   {
@@ -23,10 +21,9 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'login',
-    component: LoginComponent,
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
-  { path: 'register', component: RegisterComponent },
 ]
 
 @NgModule({

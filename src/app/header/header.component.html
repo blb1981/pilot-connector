@@ -17,10 +17,10 @@
       <a routerLink="/create" routerLinkActive="active">New Job</a>
     </li>
     <li *ngIf="!isAuthenticated">
-      <a routerLink="/login" routerLinkActive="active">Login</a>
+      <a routerLink="/auth/login" routerLinkActive="active">Login</a>
     </li>
     <li *ngIf="!isAuthenticated">
-      <a routerLink="/register" routerLinkActive="active">Register</a>
+      <a routerLink="/auth/register" routerLinkActive="active">Register</a>
     </li>
     <li *ngIf="isAuthenticated">
       <a (click)="onLogout()" routerLinkActive="active" class="logout-link"
