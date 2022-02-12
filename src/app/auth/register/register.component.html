@@ -17,6 +17,7 @@
           #companyNameInput="ngModel"
           required
           [disabled]="isLoading"
+          autofocus
         />
 
         <mat-error *ngIf="companyNameInput.invalid"

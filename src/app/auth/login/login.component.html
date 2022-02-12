@@ -17,6 +17,7 @@
           required
           email
           [disabled]="isLoading"
+          autofocus
         />
         <mat-error *ngIf="emailInput.invalid"
           >Please enter a valid email</mat-error
