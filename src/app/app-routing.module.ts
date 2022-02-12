@@ -25,7 +25,7 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
 ]
-
+//TODO: Need to configure 404 route
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],

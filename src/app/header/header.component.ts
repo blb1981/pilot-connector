@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
+import { MatDialog } from '@angular/material/dialog'
 import { Subscription } from 'rxjs'
 
 import { AuthService } from '../auth/auth.service'
+import { GenericDialog } from '../generic-dialog.component/generic-dialog.component'
 
 @Component({
   selector: 'app-header',
@@ -14,7 +16,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private authStatusSubscription: Subscription
   isAuthenticated = false
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.isAuthenticated = this.authService.getIsAuth()
@@ -23,6 +25,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe((isAuthenticated) => {
         this.isAuthenticated = isAuthenticated
       })
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(GenericDialog, {
+      data: {
+        dialogHeading: "We're sorry!",
+        dialogBody:
+          'We are not currently accepting new employers. Please check back later',
+      },
+    })
+    dialogRef.afterClosed().subscribe((result) => {})
   }
 
   onLogout() {
