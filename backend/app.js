@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 
 const jobsRoutes = require('./routes/jobs')
 const authRoutes = require('./routes/auth')
+const frontendPath = path.join(__dirname, '../', 'dist', 'pilot-connector')
 
 // Connect to DB
 mongoose
@@ -40,5 +41,8 @@ app.use((req, res, next) => {
 
 app.use('/api/jobs', jobsRoutes)
 app.use('/api/auth', authRoutes)
+
+// Serve Angular frontend app
+app.use('/', express.static(frontendPath))
 
 module.exports = app
