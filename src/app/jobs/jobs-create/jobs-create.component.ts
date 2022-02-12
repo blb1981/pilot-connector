@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs'
 import { AuthService } from 'src/app/auth/auth.service'
 import { JobsService } from '../jobs.service'
 import { Job } from '../job.model'
-import { ValidateFn } from 'mongoose'
 // import { mimeType } from './mime-type.validator'
 
 @Component({
@@ -39,7 +38,6 @@ export class JobsCreateComponent implements OnInit, OnDestroy {
     this.date = new Date()
     this.minDateString = this.date.toISOString().split('T')[0]
     // this.minDateString = this.date.getTime()
-    console.log(this.minDateString)
   }
 
   ngOnInit() {

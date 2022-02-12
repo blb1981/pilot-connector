@@ -70,7 +70,6 @@ export class JobsListComponent implements OnInit, OnDestroy {
   }
 
   openDialog() {
-    console.log('open dialog')
     const dialogRef = this.dialog.open(GenericDialog, {
       data: {
         dialogHeading: "We're sorry!",

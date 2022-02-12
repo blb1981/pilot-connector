@@ -53,7 +53,6 @@ export class AuthService {
       }>(BACKEND_URL + 'login', { email, password })
       .subscribe({
         next: (response) => {
-          console.log(response.data.expiresIn, 'seconds')
           const token = response.data.token
           this.token = token
           if (token) {
@@ -130,7 +129,6 @@ export class AuthService {
   }
 
   private setAuthTimer(duration: number) {
-    console.log('are we in setAuthTimer???')
     this.tokenTimer = setTimeout(() => {
       this.logout()
     }, duration * 1000)
