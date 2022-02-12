@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Subscription } from 'rxjs'
 import { PageEvent } from '@angular/material/paginator'
+import { MatDialog } from '@angular/material/dialog'
 
 import { AuthService } from 'src/app/auth/auth.service'
 import { Job } from '../job.model'
 import { JobsService } from '../jobs.service'
+import { GenericDialog } from 'src/app/generic-dialog.component/generic-dialog.component'
 
 @Component({
   selector: 'app-jobs-list',
@@ -25,7 +27,8 @@ export class JobsListComponent implements OnInit, OnDestroy {
 
   constructor(
     public jobsService: JobsService,
-    private authService: AuthService
+    private authService: AuthService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -64,6 +67,17 @@ export class JobsListComponent implements OnInit, OnDestroy {
         this.isLoading = false
       },
     })
+  }
+
+  openDialog() {
+    console.log('open dialog')
+    const dialogRef = this.dialog.open(GenericDialog, {
+      data: {
+        dialogHeading: "We're sorry!",
+        dialogBody: 'This feature is currently disabled.',
+      },
+    })
+    dialogRef.afterClosed().subscribe((result) => {})
   }
 
   ngOnDestroy() {

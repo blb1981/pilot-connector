@@ -12,9 +12,10 @@ import { AuthInterceptor } from './auth/auth-interceptor'
 import { ErrorComponent } from './error/error.component'
 import { ErrorInterceptor } from './error-interceptor'
 import { HeaderComponent } from './header/header.component'
+import { GenericDialog } from './generic-dialog.component/generic-dialog.component'
 
 @NgModule({
-  declarations: [AppComponent, ErrorComponent, HeaderComponent],
+  declarations: [AppComponent, ErrorComponent, HeaderComponent, GenericDialog],
   imports: [
     BrowserModule,
     AppRoutingModule,

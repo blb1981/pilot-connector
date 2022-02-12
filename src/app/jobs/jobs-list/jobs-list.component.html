@@ -28,7 +28,9 @@
           </button>
         </div>
         <div *ngIf="!isAuthenticated">
-          <button mat-raised-button color="accent">Apply for this job</button>
+          <button mat-raised-button color="accent" (click)="openDialog()">
+            Apply for this job
+          </button>
         </div>
       </mat-card-actions>
     </mat-card-content>
