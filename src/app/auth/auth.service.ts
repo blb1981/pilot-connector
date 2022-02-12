@@ -4,6 +4,9 @@ import { HttpClient } from '@angular/common/http'
 import { Subject } from 'rxjs'
 
 import { AuthData } from './auth-data.model'
+import { environment } from '../../environments/environment'
+
+const BACKEND_URL = environment.apiUrl + 'auth/'
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -32,16 +35,14 @@ export class AuthService {
   }
 
   createUser(authData: AuthData) {
-    this.http
-      .post('http://localhost:3000/api/auth/register', authData)
-      .subscribe({
-        complete: () => {
-          this.router.navigate(['/auth/login'])
-        },
-        error: () => {
-          this.authStatusListener.next(false)
-        },
-      })
+    this.http.post(BACKEND_URL + 'register', authData).subscribe({
+      complete: () => {
+        this.router.navigate(['/auth/login'])
+      },
+      error: () => {
+        this.authStatusListener.next(false)
+      },
+    })
   }
 
   login(email: string, password: string) {
@@ -49,7 +50,7 @@ export class AuthService {
       .post<{
         status: string
         data: { token: string; expiresIn: number; userId: string; name: string }
-      }>('http://localhost:3000/api/auth/login', { email, password })
+      }>(BACKEND_URL + 'login', { email, password })
       .subscribe({
         next: (response) => {
           console.log(response.data.expiresIn, 'seconds')

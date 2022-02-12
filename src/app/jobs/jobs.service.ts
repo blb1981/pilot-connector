@@ -5,6 +5,9 @@ import { Subject } from 'rxjs'
 import { map } from 'rxjs/operators'
 
 import { Job } from './job.model'
+import { environment } from '../../environments/environment'
+
+const BACKEND_URL = environment.apiUrl + 'jobs/'
 
 @Injectable({ providedIn: 'root' })
 export class JobsService {
@@ -22,7 +25,7 @@ export class JobsService {
           total: number
           jobs: [any]
         }
-      }>('http://localhost:3000/api/jobs' + queryParams)
+      }>(BACKEND_URL + queryParams)
       .pipe(
         map((response) => {
           return {
@@ -63,7 +66,8 @@ export class JobsService {
       data: {
         job: any
       }
-    }>(`http://localhost:3000/api/jobs/${id}`)
+    }>(BACKEND_URL + id)
+    // }>(`http://localhost:3000/api/jobs/${id}`)
   }
 
   addJob(
@@ -84,11 +88,9 @@ export class JobsService {
     postData.append('startDate', startDate)
     postData.append('endDate', endDate)
 
-    this.http
-      .post('http://localhost:3000/api/jobs', postData)
-      .subscribe((response) => {
-        this.router.navigate(['/'])
-      })
+    this.http.post(BACKEND_URL, postData).subscribe((response) => {
+      this.router.navigate(['/'])
+    })
   }
 
   updateJob(
@@ -137,7 +139,7 @@ export class JobsService {
       user: null,
     }
 
-    this.http.put(`http://localhost:3000/api/jobs/${id}`, postData).subscribe({
+    this.http.put(BACKEND_URL + id, postData).subscribe({
       next: (response) => {
         this.router.navigate(['/'])
       },
@@ -148,8 +150,6 @@ export class JobsService {
   }
 
   deleteJob(id: string) {
-    return this.http.delete<{ message: string }>(
-      `http://localhost:3000/api/jobs/${id}`
-    )
+    return this.http.delete<{ message: string }>(BACKEND_URL + id)
   }
 }
