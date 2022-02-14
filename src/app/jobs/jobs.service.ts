@@ -7,7 +7,8 @@ import { map } from 'rxjs/operators'
 import { Job } from './job.model'
 import { environment } from '../../environments/environment'
 
-const BACKEND_URL = environment.apiUrl + 'jobs/'
+const BACKEND_URL = environment.apiUrl + 'jobs'
+console.log(BACKEND_URL)
 
 @Injectable({ providedIn: 'root' })
 export class JobsService {
