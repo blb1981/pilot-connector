@@ -7,8 +7,7 @@ import { map } from 'rxjs/operators'
 import { Job } from './job.model'
 import { environment } from '../../environments/environment'
 
-const BACKEND_URL = environment.apiUrl + 'jobs'
-console.log(BACKEND_URL)
+const BACKEND_URL = environment.apiUrl + '/jobs'
 
 @Injectable({ providedIn: 'root' })
 export class JobsService {
@@ -67,7 +66,8 @@ export class JobsService {
       data: {
         job: any
       }
-    }>(BACKEND_URL + id)
+    }>(`${BACKEND_URL}/${id}`)
+    // }>(BACKEND_URL + '/' + id)
     // }>(`http://localhost:3000/api/jobs/${id}`)
   }
 
@@ -140,7 +140,8 @@ export class JobsService {
       user: null,
     }
 
-    this.http.put(BACKEND_URL + id, postData).subscribe({
+    this.http.put(`${BACKEND_URL}/${id}`, postData).subscribe({
+      // this.http.put(BACKEND_URL + id, postData).subscribe({
       next: (response) => {
         this.router.navigate(['/'])
       },
@@ -151,6 +152,6 @@ export class JobsService {
   }
 
   deleteJob(id: string) {
-    return this.http.delete<{ message: string }>(BACKEND_URL + id)
+    return this.http.delete<{ message: string }>(`${BACKEND_URL}/${id}`)
   }
 }
