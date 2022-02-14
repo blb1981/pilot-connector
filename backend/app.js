@@ -2,6 +2,7 @@ const path = require('path')
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 const jobsRoutes = require('./routes/jobs')
 const authRoutes = require('./routes/auth')
@@ -25,19 +26,22 @@ app.use(express.json())
 // Middleware for image requests
 app.use('/images', express.static(path.join('backend/images')))
 
+// Middleware for CORS
+app.use(cors())
+
 // Headers for CORS
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-  )
-  res.setHeader(
-    'Access-Control-Allow-Methods',
-    'GET, POST, PATCH, PUT, DELETE, OPTIONS'
-  )
-  next()
-})
+// app.use((req, res, next) => {
+//   res.setHeader('Access-Control-Allow-Origin', '*')
+//   res.setHeader(
+//     'Access-Control-Allow-Headers',
+//     'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+//   )
+//   res.setHeader(
+//     'Access-Control-Allow-Methods',
+//     'GET, POST, PATCH, PUT, DELETE, OPTIONS'
+//   )
+//   next()
+// })
 
 app.use('/api/jobs', jobsRoutes)
 app.use('/api/auth', authRoutes)
