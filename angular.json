@@ -21,12 +21,15 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/site.webmanifest"
+              "src/site.webmanifest",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
             "production": {
@@ -89,7 +92,8 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/site.webmanifest"
+              "src/site.webmanifest",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.scss"

@@ -12,7 +12,9 @@ import { AuthInterceptor } from './auth/auth-interceptor'
 import { ErrorComponent } from './error/error.component'
 import { ErrorInterceptor } from './error-interceptor'
 import { HeaderComponent } from './header/header.component'
-import { GenericDialog } from './generic-dialog.component/generic-dialog.component'
+import { GenericDialog } from './generic-dialog.component/generic-dialog.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment'
 
 @NgModule({
   declarations: [AppComponent, ErrorComponent, HeaderComponent, GenericDialog],
@@ -23,6 +25,12 @@ import { GenericDialog } from './generic-dialog.component/generic-dialog.compone
     BrowserAnimationsModule,
     AngularMaterialModule,
     AppJobsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [
     {
