@@ -4,30 +4,45 @@
     <router-outlet></router-outlet>
   </mat-sidenav-content>
   <mat-sidenav #sideNav>
-    <ul class="right-menu">
-      <li>
-        <a
-          routerLink="/"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          >Home</a
-        >
-      </li>
-      <li *ngIf="isAuthenticated">
-        <a routerLink="/create" routerLinkActive="active">New Job</a>
-      </li>
-      <li *ngIf="!isAuthenticated">
-        <a routerLink="/auth/login" routerLinkActive="active">Login</a>
-      </li>
-      <li *ngIf="!isAuthenticated" (click)="openDialog()">
-        <a routerLinkActive="active" style="cursor: pointer">Register</a>
-        <!-- <a routerLink="/auth/register" routerLinkActive="active">Register</a> -->
-      </li>
-      <li *ngIf="isAuthenticated">
-        <a (click)="onLogout()" routerLinkActive="active" class="logout-link"
-          >Logout</a
-        >
-      </li>
-    </ul>
+    <mat-nav-list (click)="sideNav.toggle()">
+      <a
+        mat-list-item
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Home</a
+      >
+      <a
+        mat-list-item
+        routerLink="/create"
+        *ngIf="isAuthenticated"
+        routerLinkActive="active"
+        >New Job</a
+      >
+      <a
+        mat-list-item
+        routerLink="/auth/login"
+        *ngIf="!isAuthenticated"
+        routerLinkActive="active"
+        >Login</a
+      >
+      <mat-list-item
+        *ngIf="!isAuthenticated"
+        (click)="openDialog()"
+        style="cursor: pointer"
+        routerLinkActive="active"
+        >Register</mat-list-item
+      >
+      <!-- <a routerLink="/auth/register" routerLinkActive="active">Register</a> -->
+
+      <a
+        mat-list-item
+        (click)="onLogout()"
+        class="logout-link"
+        *ngIf="isAuthenticated"
+        routerLinkActive="active"
+        >Logout</a
+      >
+    </mat-nav-list>
   </mat-sidenav>
 </mat-sidenav-container>

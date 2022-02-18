@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
+import { Subscription } from 'rxjs'
 
 import { AuthService } from './auth/auth.service'
 import { GenericDialog } from './generic-dialog.component/generic-dialog.component'
@@ -11,11 +12,18 @@ import { GenericDialog } from './generic-dialog.component/generic-dialog.compone
 })
 export class AppComponent implements OnInit {
   isAuthenticated = false
+  private authStatusSubscription: Subscription
 
   constructor(private authService: AuthService, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.authService.autoAuthenticateUser()
+    this.isAuthenticated = this.authService.getIsAuth()
+    this.authStatusSubscription = this.authService
+      .getAuthStatusListener()
+      .subscribe((isAuthenticated) => {
+        this.isAuthenticated = isAuthenticated
+      })
   }
 
   openDialog() {
