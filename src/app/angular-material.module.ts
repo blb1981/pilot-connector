@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatNativeDateModule } from '@angular/material/core'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatToolbarModule } from '@angular/material/toolbar'
 
 @NgModule({
@@ -25,6 +26,7 @@ import { MatToolbarModule } from '@angular/material/toolbar'
     MatInputModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatSidenavModule,
     MatToolbarModule,
   ],
 })

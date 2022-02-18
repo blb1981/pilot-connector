@@ -13,3 +13,10 @@ a {
   color: cornflowerblue;
   text-decoration: none;
 }
+mat-sidenav-container {
+  height: 100%;
+  height: calc(100% - 56px);
+}
+mat-sidenav {
+  width: 14rem;
+}

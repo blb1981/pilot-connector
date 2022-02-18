@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Component, OnInit, OnDestroy, Input } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
+import { MatSidenav } from '@angular/material/sidenav'
 import { Subscription } from 'rxjs'
 
 import { AuthService } from '../auth/auth.service'
@@ -15,6 +16,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   summary = 'Classified Job Board for Pilots'
   private authStatusSubscription: Subscription
   isAuthenticated = false
+  @Input() inputSidenav: MatSidenav
 
   constructor(private authService: AuthService, public dialog: MatDialog) {}
 

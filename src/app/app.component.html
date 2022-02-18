@@ -1,6 +1,33 @@
-
-<app-header></app-header>
-
-
-
-<router-outlet></router-outlet>
+<app-header [inputSidenav]="sideNav"></app-header>
+<mat-sidenav-container>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+  <mat-sidenav #sideNav>
+    <ul class="right-menu">
+      <li>
+        <a
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Home</a
+        >
+      </li>
+      <li *ngIf="isAuthenticated">
+        <a routerLink="/create" routerLinkActive="active">New Job</a>
+      </li>
+      <li *ngIf="!isAuthenticated">
+        <a routerLink="/auth/login" routerLinkActive="active">Login</a>
+      </li>
+      <li *ngIf="!isAuthenticated" (click)="openDialog()">
+        <a routerLinkActive="active" style="cursor: pointer">Register</a>
+        <!-- <a routerLink="/auth/register" routerLinkActive="active">Register</a> -->
+      </li>
+      <li *ngIf="isAuthenticated">
+        <a (click)="onLogout()" routerLinkActive="active" class="logout-link"
+          >Logout</a
+        >
+      </li>
+    </ul>
+  </mat-sidenav>
+</mat-sidenav-container>

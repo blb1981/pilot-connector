@@ -1,4 +1,8 @@
 <mat-toolbar class="toolbar" color="primary">
+  <span class="sidenav-toggle-button" (click)="inputSidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </span>
+
   <span
     ><a routerLink="/">{{ title }}</a></span
   >
@@ -30,4 +34,3 @@
     </li>
   </ul>
 </mat-toolbar>
-<h2 class="subtitle">{{ summary }}</h2>
