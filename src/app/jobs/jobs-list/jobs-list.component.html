@@ -1,4 +1,4 @@
-<h3 *ngIf="isLoading">Loading</h3>
+<h3 *ngIf="isLoading"><mat-spinner></mat-spinner></h3>
 <div *ngIf="!isLoading" class="jobs-list-container">
   <mat-card *ngIf="jobs.length === 0" class="message">
     <mat-card-header class="message"
