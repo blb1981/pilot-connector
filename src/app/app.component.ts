@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
-import { Subscription } from 'rxjs'
+import { Router, NavigationEnd } from '@angular/router'
+import { filter, Subscription } from 'rxjs'
 
 import { AuthService } from './auth/auth.service'
 import { GenericDialog } from './generic-dialog.component/generic-dialog.component'
+declare let gtag: Function
 
 @Component({
   selector: 'app-root',
@@ -14,7 +16,11 @@ export class AppComponent implements OnInit {
   isAuthenticated = false
   private authStatusSubscription: Subscription
 
-  constructor(private authService: AuthService, public dialog: MatDialog) {}
+  constructor(
+    private authService: AuthService,
+    public dialog: MatDialog,
+    public router: Router
+  ) {}
 
   ngOnInit() {
     this.authService.autoAuthenticateUser()
@@ -39,5 +45,15 @@ export class AppComponent implements OnInit {
 
   onLogout() {
     this.authService.logout()
+  }
+
+  setUpAnalytics() {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        gtag('config', 'G-C0XPJ8NLMR', {
+          page_path: event.urlAfterRedirects,
+        })
+      })
   }
 }

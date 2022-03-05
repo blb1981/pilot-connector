@@ -51,3 +51,6 @@ Thumbs.db
 # Keep images folder but not the images
 backend/images/*
 !backend/images/.gitkeep
+
+# Analytics
+analytics-snippet.txt
